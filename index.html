@@ -1017,6 +1017,8 @@ document.getElementById("confirm-yes").addEventListener("click", async () => {
       body: JSON.stringify({ name, selections })
     });
     if (res.ok) {
+      // Remember this user has picked
+      localStorage.setItem("mastersPick", name);
       showToast(`Picks locked in for ${name}!`);
       // Reset form
       Object.keys(selections).forEach(k => delete selections[k]);
@@ -1024,8 +1026,8 @@ document.getElementById("confirm-yes").addEventListener("click", async () => {
       document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("completed"));
       document.getElementById("player-name").value = "";
       updateProgress();
-      // Switch to board
-      switchTab("board");
+      // Switch to leaderboard
+      switchTab("leaderboard");
     } else {
       showToast("Error saving picks. Try again.");
     }
@@ -1332,10 +1334,20 @@ function startLbAutoRefresh() {
 }
 startLbAutoRefresh();
 
-// Rules modal — show on first visit per session
+// Check if returning user — skip modal and go to leaderboard
+const returningUser = localStorage.getItem("mastersPick");
 const modal = document.getElementById("rules-modal");
-modal.classList.remove("hidden");
-requestAnimationFrame(() => modal.classList.add("show"));
+
+if (returningUser) {
+  // Returning user — go straight to leaderboard, hide picks tab
+  modal.classList.add("hidden");
+  document.querySelector('[data-tab="picks"]').style.display = "none";
+  switchTab("leaderboard");
+} else {
+  // First visit — show rules modal
+  modal.classList.remove("hidden");
+  requestAnimationFrame(() => modal.classList.add("show"));
+}
 
 document.getElementById("modal-close").addEventListener("click", () => {
   modal.classList.remove("show");

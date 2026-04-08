@@ -81,6 +81,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             picks = load_picks()
             picks[name] = selections
             save_picks(picks)
+            print(f"PICK SAVED: {name} -> {json.dumps(selections)}")
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
