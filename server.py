@@ -5,22 +5,66 @@ import http.server
 import json
 import os
 import urllib.request
+import urllib.parse
 import time
 
-DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "picks.json")
 PORT = int(os.environ.get("PORT", 8080))
+
+# Supabase config
+SUPABASE_URL = "https://fmpabvejsfitikfkkxg.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtcGFidmVqc2ZpdGlrbWZra3hnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODEzMjAsImV4cCI6MjA5MTI1NzMyMH0._3qRZ6l4EIGsLANeivH1VT9KTYUof10_KoldC9yyZKg"
+SUPABASE_HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+    "Content-Type": "application/json",
+    "Prefer": "return=minimal",
+}
+
+
+def supabase_request(method, path, body=None):
+    """Make a request to Supabase REST API."""
+    url = f"{SUPABASE_URL}/rest/v1/{path}"
+    data = json.dumps(body).encode() if body else None
+    headers = dict(SUPABASE_HEADERS)
+    if method == "GET":
+        headers["Accept"] = "application/json"
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            raw = resp.read()
+            return json.loads(raw) if raw else None
+    except urllib.error.HTTPError as e:
+        print(f"Supabase error: {e.code} {e.read().decode()}")
+        return None
+    except Exception as e:
+        print(f"Supabase error: {e}")
+        return None
 
 
 def load_picks():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
-            return json.load(f)
-    return {}
+    """Load all picks from Supabase."""
+    rows = supabase_request("GET", "picks?select=name,selections")
+    if rows is None:
+        return {}
+    result = {}
+    for row in rows:
+        result[row["name"]] = row["selections"]
+    return result
 
 
-def save_picks(data):
-    with open(DATA_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+def save_pick(name, selections):
+    """Save a single pick to Supabase (upsert)."""
+    headers = dict(SUPABASE_HEADERS)
+    headers["Prefer"] = "resolution=merge-duplicates,return=minimal"
+    url = f"{SUPABASE_URL}/rest/v1/picks"
+    body = json.dumps({"name": name, "selections": selections}).encode()
+    req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return True
+    except Exception as e:
+        print(f"Error saving pick: {e}")
+        return False
 
 
 # Cache Masters scores to avoid hammering their server
@@ -50,10 +94,11 @@ def fetch_masters_scores():
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/api/picks":
+            picks = load_picks()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps(load_picks()).encode())
+            self.wfile.write(json.dumps(picks).encode())
         elif self.path == "/api/scores":
             data = fetch_masters_scores()
             self.send_response(200)
@@ -78,29 +123,26 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "Name and 7 tier selections required"}).encode())
                 return
 
-            picks = load_picks()
-            picks[name] = selections
-            save_picks(picks)
-            print(f"PICK SAVED: {name} -> {json.dumps(selections)}")
+            # Check if name already exists
+            existing = load_picks()
+            if name in existing:
+                self.send_response(409)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Picks already submitted for this name"}).encode())
+                return
 
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps({"ok": True}).encode())
-
-    def do_DELETE(self):
-        if self.path.startswith("/api/picks/"):
-            name = self.path.split("/api/picks/", 1)[1]
-            from urllib.parse import unquote
-            name = unquote(name)
-            picks = load_picks()
-            if name in picks:
-                del picks[name]
-                save_picks(picks)
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps({"ok": True}).encode())
+            if save_pick(name, selections):
+                print(f"PICK SAVED: {name} -> {json.dumps(selections)}")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"ok": True}).encode())
+            else:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Failed to save"}).encode())
 
 
 if __name__ == "__main__":
