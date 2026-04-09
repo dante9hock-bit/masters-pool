@@ -102,146 +102,6 @@
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* Pick form */
-    .name-input-wrap {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .name-input-wrap label {
-      display: block;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: 0.6rem;
-      color: var(--masters-dark);
-    }
-    .name-input-wrap input {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
-      padding: 0.7rem 1.2rem;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      width: 280px;
-      text-align: center;
-      transition: border-color 0.2s;
-    }
-    .name-input-wrap input:focus {
-      outline: none;
-      border-color: var(--masters-green);
-    }
-
-    /* Tier cards */
-    .tier-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      margin-bottom: 1.2rem;
-      overflow: hidden;
-      transition: box-shadow 0.2s;
-    }
-    .tier-card:hover { box-shadow: var(--shadow-lg); }
-    .tier-header {
-      background: var(--masters-green);
-      color: white;
-      padding: 0.8rem 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .tier-header h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    .tier-header .tier-badge {
-      background: var(--masters-gold);
-      color: var(--masters-dark);
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .tier-golfers {
-      padding: 0.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .golfer-btn {
-      background: var(--masters-light-green);
-      border: 2px solid transparent;
-      border-radius: 8px;
-      padding: 0.55rem 1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 400;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: var(--text-dark);
-    }
-    .golfer-btn:hover {
-      border-color: var(--masters-green);
-      background: #d4edda;
-    }
-    .golfer-btn.selected {
-      background: var(--masters-green);
-      color: white;
-      border-color: var(--masters-green);
-      font-weight: 500;
-    }
-    .golfer-odds {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--masters-green);
-      margin-top: 0.15rem;
-      opacity: 0.8;
-    }
-    .golfer-btn.selected .golfer-odds {
-      color: var(--masters-gold);
-      opacity: 1;
-    }
-
-    /* Tier selection indicator */
-    .tier-header .check {
-      display: none;
-      font-size: 1rem;
-    }
-    .tier-card.completed .tier-header .check { display: inline; }
-    .tier-card.completed .tier-header {
-      background: var(--masters-dark);
-    }
-
-    /* Submit button */
-    .submit-wrap {
-      text-align: center;
-      margin-top: 2rem;
-      padding-bottom: 2rem;
-    }
-    .submit-btn {
-      background: var(--masters-gold);
-      color: var(--masters-dark);
-      border: none;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      padding: 0.9rem 3rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-    }
-    .submit-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
-    }
-    .submit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
     /* Leaderboard */
     .leaderboard-empty {
       text-align: center;
@@ -306,127 +166,6 @@
     .pick-golfer {
       font-weight: 500;
       color: var(--masters-dark);
-    }
-
-    /* Modal overlay */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.65);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      padding: 1rem;
-    }
-    .modal-overlay.show { opacity: 1; }
-    .modal-overlay.hidden { display: none; }
-    .modal {
-      background: white;
-      border-radius: 16px;
-      max-width: 580px;
-      width: 100%;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-    .modal-overlay.show .modal { transform: translateY(0); }
-    .modal-header {
-      background: var(--masters-green);
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-    }
-    .modal-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 0.2rem;
-    }
-    .modal-header p {
-      font-size: 0.85rem;
-      opacity: 0.8;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .modal-body {
-      padding: 1.8rem 2rem;
-    }
-    .modal-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--masters-dark);
-      margin-bottom: 1rem;
-    }
-    .rule-item {
-      display: flex;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
-      align-items: flex-start;
-    }
-    .rule-number {
-      background: var(--masters-green);
-      color: white;
-      min-width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-    .rule-text {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: var(--text-dark);
-    }
-    .rule-text strong { color: var(--masters-dark); }
-    .scoring-example {
-      background: var(--masters-light-green);
-      border-left: 3px solid var(--masters-green);
-      padding: 1rem 1.2rem;
-      border-radius: 0 8px 8px 0;
-      margin-top: 1.2rem;
-    }
-    .scoring-example .example-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--masters-green);
-      margin-bottom: 0.3rem;
-    }
-    .scoring-example p {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: var(--text-dark);
-    }
-    .modal-footer {
-      padding: 0 2rem 1.8rem;
-      text-align: center;
-    }
-    .modal-close-btn {
-      background: var(--masters-gold);
-      color: var(--masters-dark);
-      border: none;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      padding: 0.8rem 2.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-    }
-    .modal-close-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
     }
 
     /* Rules panel */
@@ -609,57 +348,6 @@
       border-radius: 8px;
     }
 
-    /* Confirm modal */
-    .confirm-modal-body {
-      padding: 2rem;
-      text-align: center;
-    }
-    .confirm-modal-body p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--text-dark);
-      margin-bottom: 0.5rem;
-    }
-    .confirm-modal-body .warn {
-      font-size: 0.9rem;
-      color: #c0392b;
-      font-weight: 500;
-      margin-top: 0.5rem;
-    }
-    .confirm-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 1.5rem;
-    }
-    .confirm-btns button {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      padding: 0.7rem 1.8rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .confirm-cancel {
-      background: white;
-      border: 2px solid #ddd;
-      color: var(--text-muted);
-    }
-    .confirm-cancel:hover {
-      border-color: #999;
-      color: var(--text-dark);
-    }
-    .confirm-yes {
-      background: var(--masters-green);
-      border: 2px solid var(--masters-green);
-      color: white;
-    }
-    .confirm-yes:hover {
-      background: var(--masters-dark);
-      border-color: var(--masters-dark);
-    }
-
     /* Next page button */
     .next-page-wrap {
       text-align: center;
@@ -704,32 +392,6 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Progress bar */
-    .progress-wrap {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .progress-bar {
-      width: 100%;
-      max-width: 400px;
-      height: 6px;
-      background: #e0e0e0;
-      border-radius: 3px;
-      margin: 0.5rem auto;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--masters-gold);
-      border-radius: 3px;
-      transition: width 0.3s ease;
-      width: 0%;
-    }
-    .progress-text {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
     /* Responsive */
     @media (max-width: 600px) {
       header h1 { font-size: 2rem; }
@@ -750,35 +412,11 @@
 
 <nav class="tabs">
   <button class="tab-btn" data-tab="rules">Rules</button>
-  <button class="tab-btn active" data-tab="picks">Make Your Picks</button>
   <button class="tab-btn" data-tab="board">View All Picks</button>
-  <button class="tab-btn" data-tab="leaderboard">Leaderboard</button>
+  <button class="tab-btn active" data-tab="leaderboard">Leaderboard</button>
 </nav>
 
 <div class="container">
-  <!-- PICK TAB -->
-  <div class="panel active" id="picks-panel">
-    <div class="name-input-wrap">
-      <label for="player-name">Your Name</label>
-      <input type="text" id="player-name" placeholder="Enter your name" autocomplete="off">
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-text"><span id="tier-count">0</span> of 7 tiers selected</div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-    </div>
-
-    <div id="tiers-container"></div>
-
-    <div class="submit-wrap">
-      <button class="submit-btn" id="submit-btn" disabled>Lock In My Picks</button>
-    </div>
-
-    <div class="next-page-wrap">
-      <button class="next-page-btn" data-next="board">Next Page</button>
-    </div>
-  </div>
-
   <!-- RULES TAB -->
   <div class="panel" id="rules-panel">
     <div class="rules-content">
@@ -806,7 +444,7 @@
         </div>
       </div>
       <div class="next-page-wrap">
-        <button class="next-page-btn" data-next="picks">Next Page</button>
+        <button class="next-page-btn" data-next="leaderboard">Next Page</button>
       </div>
     </div>
   </div>
@@ -834,98 +472,9 @@
   </div>
 </div>
 
-<!-- Rules Modal (shown on first load) -->
-<div class="modal-overlay hidden" id="rules-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>Welcome to The Shanks Golf Club Masters Pool</h2>
-      <p>Augusta National &middot; 2026</p>
-    </div>
-    <div class="modal-body">
-      <h3>How It Works</h3>
-      <div class="rule-item">
-        <span class="rule-number">1</span>
-        <span class="rule-text"><strong>Pick one golfer</strong> from each of the seven tiers (7 golfers total).</span>
-      </div>
-      <div class="rule-item">
-        <span class="rule-number">2</span>
-        <span class="rule-text">Your <strong>best four golfers' scores</strong> count towards your total.</span>
-      </div>
-      <div class="rule-item">
-        <span class="rule-number">3</span>
-        <span class="rule-text">The <strong>lowest total strokes wins</strong>.</span>
-      </div>
-      <div class="rule-item">
-        <span class="rule-number">4</span>
-        <span class="rule-text">Missed the cut? That golfer gets <strong>+80 strokes</strong> for Rounds 3 &amp; 4.</span>
-      </div>
-      <div class="scoring-example">
-        <div class="example-label">Example</div>
-        <p>Rory McIlroy won last year with <strong>277 total strokes</strong> — that's what he'd contribute to your team score.</p>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-close-btn" id="modal-close">Make My Picks</button>
-    </div>
-  </div>
-</div>
-
-<!-- Confirmation Modal -->
-<div class="modal-overlay hidden" id="confirm-modal">
-  <div class="modal" style="max-width:440px">
-    <div class="modal-header" style="padding:1.2rem 1.5rem">
-      <h2 style="font-size:1.4rem">Confirm Your Picks</h2>
-    </div>
-    <div class="confirm-modal-body">
-      <p>Are you sure you want to lock in your picks?</p>
-      <p class="warn">This decision is final. You will not be able to change your selections after submitting.</p>
-      <div class="confirm-btns">
-        <button class="confirm-cancel" id="confirm-cancel">Go Back</button>
-        <button class="confirm-yes" id="confirm-yes">Lock It In</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// Sportsbet Australia odds (as of tournament week)
-const ODDS = {
-  "Scottie Scheffler":"$6.50","Bryson DeChambeau":"$11.00","Jon Rahm":"$11.00",
-  "Rory McIlroy":"$14.00","Ludvig Åberg":"$17.00","Xander Schauffele":"$15.00",
-  "Cameron Young":"$20.00","Matt Fitzpatrick":"$21.00","Tommy Fleetwood":"$21.00",
-  "Hideki Matsuyama":"$26.00","Justin Rose":"$31.00","Min Woo Lee":"$31.00",
-  "Robert MacIntyre":"$31.00","Collin Morikawa":"$34.00","Patrick Reed":"$34.00",
-  "Jordan Spieth":"$41.00","Brooks Koepka":"$41.00","Viktor Hovland":"$46.00",
-  "Si Woo Kim":"$41.00","Chris Gotterup":"$46.00","Jake Knapp":"$56.00",
-  "Adam Scott":"$76.00","Russell Henley":"$51.00","Akshay Bhatia":"$46.00",
-  "Nicolai Højgaard":"$46.00","Shane Lowry":"$61.00","Justin Thomas":"$61.00",
-  "Patrick Cantlay":"$61.00","J.J. Spaun":"$71.00","Jason Day":"$76.00",
-  "Tyrrell Hatton":"$76.00","Jacob Bridgeman":"$71.00","Corey Conners":"$76.00",
-  "Maverick McNealy":"$56.00","Cameron Smith":"$101.00",
-  "Marco Penge":"$91.00","Sam Burns":"$91.00","Gary Woodland":"$101.00",
-  "Sungjae Im":"$101.00","Daniel Berger":"$126.00","Harris English":"$91.00",
-  "Rasmus Højgaard":"$101.00","Aldrich Potgieter":"$151.00","Aaron Rai":"$151.00",
-  "Alex Noren":"$151.00","Brian Harman":"$201.00","Kurt Kitayama":"$101.00",
-  "Ben Griffin":"$126.00","Max Homa":"$151.00",
-  "Casey Jarvis":"$201.00","Harry Hall":"$151.00","Ryan Fox":"$201.00",
-  "Sam Stevens":"$151.00","Ryan Gerard":"$126.00","Wyndham Clark":"$201.00",
-  "Keegan Bradley":"$151.00","Michael Kim":"$251.00","Nico Echavarria":"$251.00",
-  "Rasmus Neergaard-Petersen":"$301.00","Max Greyserman":"$301.00",
-  "Nick Taylor":"$301.00","Sergio Garcia":"$251.00","Haotong Li":"$301.00",
-  "Dustin Johnson":"$251.00","Sami Välimäki":"$301.00","John Keefer":"$426.00",
-  "Tom McKibbin":"$426.00","Kristoffer Reitan":"$151.00","Carlos Ortiz":"$251.00",
-  "Matt McCarty":"$301.00",
-  "Michael Brennan":"$426.00","Andrew Novak":"$301.00","Danny Willett":"$501.00",
-  "Charl Schwartzel":"$501.00","Zach Johnson":"$501.00","Bubba Watson":"$501.00",
-  "Ethan Fang":"$501.00","Davis Riley":"$501.00","Naoyuki Kataoka":"$501.00",
-  "Mason Howell":"$501.00","Brian Campbell":"$501.00","Angel Cabrera":"$501.00",
-  "Fifa Laopakdee":"$501.00","Jackson Herrington":"$501.00","Mateo Pulcini":"$501.00",
-  "Fred Couples":"$501.00","Brandon Holtz":"$501.00","Mike Weir":"$501.00",
-  "José María Olazábal":"$501.00","Vijay Singh":"$501.00"
-};
-
 const TIERS = [
   {
     name: "Tier 1",
@@ -963,127 +512,6 @@ const TIERS = [
     golfers: ["Michael Brennan", "Andrew Novak", "Danny Willett", "Charl Schwartzel", "Zach Johnson", "Bubba Watson", "Ethan Fang", "Davis Riley", "Naoyuki Kataoka", "Mason Howell", "Brian Campbell", "Angel Cabrera", "Fifa Laopakdee", "Jackson Herrington", "Mateo Pulcini", "Fred Couples", "Brandon Holtz", "Mike Weir", "José María Olazábal", "Vijay Singh"]
   }
 ];
-
-const selections = {};
-
-// Build tier UI
-const container = document.getElementById("tiers-container");
-TIERS.forEach((tier, i) => {
-  const tierNum = i + 1;
-  const card = document.createElement("div");
-  card.className = "tier-card";
-  card.id = `tier-card-${tierNum}`;
-  card.innerHTML = `
-    <div class="tier-header">
-      <h3>${tier.name} <span style="font-weight:300;opacity:0.8">— ${tier.label}</span></h3>
-      <span>
-        <span class="check">&#10003;</span>
-        <span class="tier-badge">${tier.golfers.length} golfers</span>
-      </span>
-    </div>
-    <div class="tier-golfers">
-      ${tier.golfers.map(g => `<button class="golfer-btn" data-tier="${tierNum}" data-golfer="${g}">${g}<span class="golfer-odds">${ODDS[g] || ""}</span></button>`).join("")}
-    </div>
-  `;
-  container.appendChild(card);
-});
-
-// Golfer selection
-container.addEventListener("click", e => {
-  const btn = e.target.closest(".golfer-btn");
-  if (!btn) return;
-  const tier = btn.dataset.tier;
-  const golfer = btn.dataset.golfer;
-
-  // Deselect previous in this tier
-  document.querySelectorAll(`.golfer-btn[data-tier="${tier}"]`).forEach(b => b.classList.remove("selected"));
-
-  // Select this one
-  btn.classList.add("selected");
-  selections[tier] = golfer;
-
-  // Update tier card state
-  document.getElementById(`tier-card-${tier}`).classList.add("completed");
-
-  updateProgress();
-});
-
-function updateProgress() {
-  const count = Object.keys(selections).length;
-  document.getElementById("tier-count").textContent = count;
-  document.getElementById("progress-fill").style.width = `${(count / 7) * 100}%`;
-  document.getElementById("submit-btn").disabled = count < 7 || !document.getElementById("player-name").value.trim();
-}
-
-document.getElementById("player-name").addEventListener("input", updateProgress);
-
-// Submit picks — show confirmation modal first
-document.getElementById("submit-btn").addEventListener("click", async () => {
-  const name = document.getElementById("player-name").value.trim();
-  if (!name || Object.keys(selections).length < 7) return;
-
-  // Check if name already has picks
-  try {
-    const res = await fetch("/api/picks");
-    const existing = await res.json();
-    if (existing[name]) {
-      showToast(`Picks for "${name}" have already been submitted. Picks are final!`);
-      return;
-    }
-  } catch {}
-
-  // Show confirm modal
-  const confirmModal = document.getElementById("confirm-modal");
-  confirmModal.classList.remove("hidden");
-  requestAnimationFrame(() => confirmModal.classList.add("show"));
-});
-
-// Confirm cancel
-document.getElementById("confirm-cancel").addEventListener("click", () => {
-  const confirmModal = document.getElementById("confirm-modal");
-  confirmModal.classList.remove("show");
-  setTimeout(() => confirmModal.classList.add("hidden"), 300);
-});
-
-// Confirm yes — actually submit
-document.getElementById("confirm-yes").addEventListener("click", async () => {
-  const confirmModal = document.getElementById("confirm-modal");
-  confirmModal.classList.remove("show");
-  setTimeout(() => confirmModal.classList.add("hidden"), 300);
-
-  const name = document.getElementById("player-name").value.trim();
-  if (!name || Object.keys(selections).length < 7) return;
-
-  const btn = document.getElementById("submit-btn");
-  btn.disabled = true;
-  btn.textContent = "Submitting...";
-
-  try {
-    const res = await fetch("/api/picks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, selections })
-    });
-    if (res.ok) {
-      // Remember this user has picked
-      localStorage.setItem("mastersPick", name);
-      showToast(`Picks locked in for ${name}!`);
-      // Reset form
-      Object.keys(selections).forEach(k => delete selections[k]);
-      document.querySelectorAll(".golfer-btn").forEach(b => b.classList.remove("selected"));
-      document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("completed"));
-      document.getElementById("player-name").value = "";
-      updateProgress();
-      // Switch to leaderboard
-      switchTab("leaderboard");
-    } else {
-      showToast("Error saving picks. Try again.");
-    }
-  } catch {
-    showToast("Could not connect to server.");
-  }
-  btn.textContent = "Lock In My Picks";
-});
 
 // Tab switching
 document.querySelectorAll(".tab-btn").forEach(btn => {
@@ -1145,6 +573,7 @@ let lbInterval = null;
 
 // Normalize names for fuzzy matching between our list and Masters feed
 function normalizeName(name) {
+  if (!name) return "";
   return name
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")  // strip accents
     .replace(/[.\-']/g, "")
@@ -1154,6 +583,7 @@ function normalizeName(name) {
 }
 
 function findPlayerScore(golferName, mastersPlayers) {
+  if (!golferName) return null;
   const norm = normalizeName(golferName);
   // Try exact normalized match on full_name, display_name, first+last
   for (const p of mastersPlayers) {
@@ -1265,7 +695,7 @@ async function loadLeaderboard() {
       const sels = picks[name];
       const golfers = TIERS.map((tier, i) => {
         const tierNum = i + 1;
-        const golferName = sels[tierNum];
+        const golferName = sels[tierNum] || sels[String(tierNum)];
         const player = findPlayerScore(golferName, mastersPlayers);
         const totalStrokes = getGolferTotal(player);
         return {
@@ -1382,31 +812,8 @@ function startLbAutoRefresh() {
 }
 startLbAutoRefresh();
 
-// Check if returning user — skip modal and go to leaderboard
-const returningUser = localStorage.getItem("mastersPick");
-const modal = document.getElementById("rules-modal");
-
-if (returningUser) {
-  // Returning user — go straight to leaderboard, hide picks tab
-  modal.classList.add("hidden");
-  document.querySelector('[data-tab="picks"]').style.display = "none";
-  switchTab("leaderboard");
-} else {
-  // First visit — show rules modal
-  modal.classList.remove("hidden");
-  requestAnimationFrame(() => modal.classList.add("show"));
-}
-
-document.getElementById("modal-close").addEventListener("click", () => {
-  modal.classList.remove("show");
-  setTimeout(() => modal.classList.add("hidden"), 300);
-});
-modal.addEventListener("click", e => {
-  if (e.target === modal) {
-    modal.classList.remove("show");
-    setTimeout(() => modal.classList.add("hidden"), 300);
-  }
-});
+// Default to leaderboard tab
+switchTab("leaderboard");
 
 // Toast
 function showToast(msg) {
