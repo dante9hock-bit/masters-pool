@@ -102,7 +102,49 @@ def fetch_masters_scores():
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/api/picks":
+        if self.path == "/api/debug":
+            # Debug endpoint to test Supabase connection
+            results = {}
+            try:
+                url = f"{SUPABASE_URL}/rest/v1/picks?select=name"
+                headers = {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": f"Bearer {SUPABASE_KEY}",
+                    "Accept": "application/json",
+                }
+                req = urllib.request.Request(url, headers=headers, method="GET")
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    results["read_status"] = resp.status
+                    results["read_data"] = json.loads(resp.read())
+            except urllib.error.HTTPError as e:
+                results["read_error"] = f"{e.code}: {e.read().decode()}"
+            except Exception as e:
+                results["read_error"] = str(e)
+
+            # Test write
+            try:
+                url = f"{SUPABASE_URL}/rest/v1/picks"
+                headers = {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": f"Bearer {SUPABASE_KEY}",
+                    "Content-Type": "application/json",
+                    "Prefer": "return=representation",
+                }
+                body = json.dumps({"name": "__test__", "selections": {"1":"test"}}).encode()
+                req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    results["write_status"] = resp.status
+                    results["write_data"] = resp.read().decode()
+            except urllib.error.HTTPError as e:
+                results["write_error"] = f"{e.code}: {e.read().decode()}"
+            except Exception as e:
+                results["write_error"] = str(e)
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(results, indent=2).encode())
+        elif self.path == "/api/picks":
             picks = load_picks()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
