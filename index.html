@@ -190,6 +190,18 @@
       border-color: var(--masters-green);
       font-weight: 500;
     }
+    .golfer-odds {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--masters-green);
+      margin-top: 0.15rem;
+      opacity: 0.8;
+    }
+    .golfer-btn.selected .golfer-odds {
+      color: var(--masters-gold);
+      opacity: 1;
+    }
 
     /* Tier selection indicator */
     .tier-header .check {
@@ -878,6 +890,42 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// Sportsbet Australia odds (as of tournament week)
+const ODDS = {
+  "Scottie Scheffler":"$6.50","Bryson DeChambeau":"$11.00","Jon Rahm":"$11.00",
+  "Rory McIlroy":"$14.00","Ludvig Åberg":"$17.00","Xander Schauffele":"$15.00",
+  "Cameron Young":"$20.00","Matt Fitzpatrick":"$21.00","Tommy Fleetwood":"$21.00",
+  "Hideki Matsuyama":"$26.00","Justin Rose":"$31.00","Min Woo Lee":"$31.00",
+  "Robert MacIntyre":"$31.00","Collin Morikawa":"$34.00","Patrick Reed":"$34.00",
+  "Jordan Spieth":"$41.00","Brooks Koepka":"$41.00","Viktor Hovland":"$46.00",
+  "Si Woo Kim":"$41.00","Chris Gotterup":"$46.00","Jake Knapp":"$56.00",
+  "Adam Scott":"$76.00","Russell Henley":"$51.00","Akshay Bhatia":"$46.00",
+  "Nicolai Højgaard":"$46.00","Shane Lowry":"$61.00","Justin Thomas":"$61.00",
+  "Patrick Cantlay":"$61.00","J.J. Spaun":"$71.00","Jason Day":"$76.00",
+  "Tyrrell Hatton":"$76.00","Jacob Bridgeman":"$71.00","Corey Conners":"$76.00",
+  "Maverick McNealy":"$56.00","Cameron Smith":"$101.00",
+  "Marco Penge":"$91.00","Sam Burns":"$91.00","Gary Woodland":"$101.00",
+  "Sungjae Im":"$101.00","Daniel Berger":"$126.00","Harris English":"$91.00",
+  "Rasmus Højgaard":"$101.00","Aldrich Potgieter":"$151.00","Aaron Rai":"$151.00",
+  "Alex Noren":"$151.00","Brian Harman":"$201.00","Kurt Kitayama":"$101.00",
+  "Ben Griffin":"$126.00","Max Homa":"$151.00",
+  "Casey Jarvis":"$201.00","Harry Hall":"$151.00","Ryan Fox":"$201.00",
+  "Sam Stevens":"$151.00","Ryan Gerard":"$126.00","Wyndham Clark":"$201.00",
+  "Keegan Bradley":"$151.00","Michael Kim":"$251.00","Nico Echavarria":"$251.00",
+  "Rasmus Neergaard-Petersen":"$301.00","Max Greyserman":"$301.00",
+  "Nick Taylor":"$301.00","Sergio Garcia":"$251.00","Haotong Li":"$301.00",
+  "Dustin Johnson":"$251.00","Sami Välimäki":"$301.00","John Keefer":"$426.00",
+  "Tom McKibbin":"$426.00","Kristoffer Reitan":"$151.00","Carlos Ortiz":"$251.00",
+  "Matt McCarty":"$301.00",
+  "Michael Brennan":"$426.00","Andrew Novak":"$301.00","Danny Willett":"$501.00",
+  "Charl Schwartzel":"$501.00","Zach Johnson":"$501.00","Bubba Watson":"$501.00",
+  "Ethan Fang":"$501.00","Davis Riley":"$501.00","Naoyuki Kataoka":"$501.00",
+  "Mason Howell":"$501.00","Brian Campbell":"$501.00","Angel Cabrera":"$501.00",
+  "Fifa Laopakdee":"$501.00","Jackson Herrington":"$501.00","Mateo Pulcini":"$501.00",
+  "Fred Couples":"$501.00","Brandon Holtz":"$501.00","Mike Weir":"$501.00",
+  "José María Olazábal":"$501.00","Vijay Singh":"$501.00"
+};
+
 const TIERS = [
   {
     name: "Tier 1",
@@ -934,7 +982,7 @@ TIERS.forEach((tier, i) => {
       </span>
     </div>
     <div class="tier-golfers">
-      ${tier.golfers.map(g => `<button class="golfer-btn" data-tier="${tierNum}" data-golfer="${g}">${g}</button>`).join("")}
+      ${tier.golfers.map(g => `<button class="golfer-btn" data-tier="${tierNum}" data-golfer="${g}">${g}<span class="golfer-odds">${ODDS[g] || ""}</span></button>`).join("")}
     </div>
   `;
   container.appendChild(card);

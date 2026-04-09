@@ -53,17 +53,26 @@ def load_picks():
 
 
 def save_pick(name, selections):
-    """Save a single pick to Supabase (upsert)."""
-    headers = dict(SUPABASE_HEADERS)
-    headers["Prefer"] = "resolution=merge-duplicates,return=minimal"
+    """Save a single pick to Supabase."""
     url = f"{SUPABASE_URL}/rest/v1/picks"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
+    }
     body = json.dumps({"name": name, "selections": selections}).encode()
     req = urllib.request.Request(url, data=body, headers=headers, method="POST")
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
+            print(f"Supabase INSERT success: {resp.status}")
             return True
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        print(f"Supabase INSERT error: {e.code} {error_body}")
+        return False
     except Exception as e:
-        print(f"Error saving pick: {e}")
+        print(f"Supabase connection error: {e}")
         return False
 
 

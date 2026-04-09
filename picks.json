@@ -1,1 +1,47 @@
-{}
+{
+  "Dante": {
+    "1": "Scottie Scheffler",
+    "2": "Rory McIlroy",
+    "3": "Collin Morikawa",
+    "4": "Jordan Spieth",
+    "5": "Sam Burns",
+    "6": "Dustin Johnson",
+    "7": "Fred Couples"
+  },
+  "Jake": {
+    "1": "Bryson DeChambeau",
+    "2": "Xander Schauffele",
+    "3": "Hideki Matsuyama",
+    "4": "Brooks Koepka",
+    "5": "Max Homa",
+    "6": "Sergio Garcia",
+    "7": "Bubba Watson"
+  },
+  "Mike": {
+    "1": "Jon Rahm",
+    "2": "Ludvig \u00c5berg",
+    "3": "Tommy Fleetwood",
+    "4": "Viktor Hovland",
+    "5": "Brian Harman",
+    "6": "Wyndham Clark",
+    "7": "Danny Willett"
+  },
+  "Chris": {
+    "1": "Scottie Scheffler",
+    "2": "Xander Schauffele",
+    "3": "Matt Fitzpatrick",
+    "4": "Patrick Cantlay",
+    "5": "Sungjae Im",
+    "6": "Keegan Bradley",
+    "7": "Vijay Singh"
+  },
+  "Tom": {
+    "1": "Jon Rahm",
+    "2": "Rory McIlroy",
+    "3": "Justin Rose",
+    "4": "Cameron Smith",
+    "5": "Aaron Rai",
+    "6": "Dustin Johnson",
+    "7": "Charl Schwartzel"
+  }
+}
