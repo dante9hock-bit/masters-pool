@@ -11,7 +11,7 @@ import time
 PORT = int(os.environ.get("PORT", 8080))
 
 # Supabase config
-SUPABASE_URL = "https://fmpabvejsfitikfkkxg.supabase.co"
+SUPABASE_URL = "https://fmpabvejsfitikmfkkxg.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtcGFidmVqc2ZpdGlrbWZra3hnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODEzMjAsImV4cCI6MjA5MTI1NzMyMH0._3qRZ6l4EIGsLANeivH1VT9KTYUof10_KoldC9yyZKg"
 SUPABASE_HEADERS = {
     "apikey": SUPABASE_KEY,
