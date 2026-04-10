@@ -187,158 +187,243 @@
       padding: 2rem;
     }
 
-    /* Pool Leaderboard */
+    /* Pool Leaderboard — Augusta scoreboard style */
+    .lb-scoreboard {
+      max-width: 860px;
+      margin: 0 auto 2rem;
+    }
     .lb-header {
       text-align: center;
-      margin-bottom: 1.5rem;
+      background: white;
+      padding: 1.4rem 2rem 1rem;
+      border-radius: 60px 60px 0 0;
+      position: relative;
+      border: 2px solid #222;
+      border-bottom: none;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
     }
     .lb-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--masters-dark);
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
     .lb-updated {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
+      font-size: 0.75rem;
+      color: #555;
+      margin-top: 0.25rem;
+      letter-spacing: 0.03em;
     }
     .lb-auto-tag {
       display: inline-block;
-      background: var(--masters-light-green);
-      color: var(--masters-green);
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      background: #c0392b;
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
       margin-left: 0.4rem;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
+      animation: livePulse 2s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
     .lb-table-wrap {
       background: white;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
       overflow: hidden;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0;
+    }
+    .lb-board-base {
+      background: var(--masters-green);
+      height: 18px;
+      border-radius: 0 0 4px 4px;
+      border: 2px solid #1a4d35;
+      border-top: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .lb-table {
       width: 100%;
       border-collapse: collapse;
     }
     .lb-table thead th {
-      background: var(--masters-green);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 600;
+      background: white;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.8rem 0.8rem;
+      letter-spacing: 0.12em;
+      padding: 0.6rem 0.8rem;
       text-align: left;
+      border-bottom: 2px solid #222;
+      border-top: 2px solid #222;
     }
     .lb-table thead th.num { text-align: center; }
     .lb-table tbody tr {
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid #ccc;
       transition: background 0.1s;
     }
-    .lb-table tbody tr:last-child { border-bottom: none; }
-    .lb-table tbody tr:hover { background: var(--masters-light-green); }
-    .lb-table tbody tr.first-place { background: #fef9e7; }
-    .lb-table tbody tr.first-place:hover { background: #fdf3cd; }
+    .lb-table tbody tr:last-child { border-bottom: 2px solid #222; }
+    .lb-table tbody tr:hover { background: #f5f5f0; }
+    .lb-table tbody tr.first-place { background: #fefce8; }
+    .lb-table tbody tr.first-place:hover { background: #fef9c3; }
+    .lb-table tbody tr.second-place { background: #fafafa; }
+    .lb-table tbody tr.third-place { background: #fdf8f0; }
     .lb-table td {
       padding: 0.75rem 0.8rem;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      color: #111;
+      border-right: 1px solid #ddd;
     }
+    .lb-table td:last-child { border-right: none; }
     .lb-table td.num { text-align: center; }
     .lb-pos {
       font-weight: 700;
-      color: var(--masters-dark);
-      min-width: 30px;
+      min-width: 40px;
       text-align: center;
     }
+    .lb-pos-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+    .lb-pos-badge.gold {
+      background: linear-gradient(135deg, #ffd700, #b8960c);
+      color: #3d2e00;
+      box-shadow: 0 2px 8px rgba(255,215,0,0.35);
+      font-size: 1rem;
+    }
+    .lb-pos-badge.silver {
+      background: linear-gradient(135deg, #e0e0e0, #a0a0a0);
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .lb-pos-badge.bronze {
+      background: linear-gradient(135deg, #cd7f32, #a0622d);
+      color: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .lb-pos-badge.standard {
+      background: none;
+      color: #333;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
     .lb-name {
-      font-weight: 600;
-      color: var(--text-dark);
+      font-weight: 700;
+      color: #111;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
     }
     .lb-score {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--masters-dark);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #111;
       font-family: 'Inter', sans-serif;
+      letter-spacing: -0.02em;
     }
     .lb-detail-toggle {
-      background: none;
-      border: 1px solid #ddd;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
+      background: white;
+      border: 1px solid #bbb;
+      color: #555;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.25rem 0.55rem;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 0.15s;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .lb-detail-toggle:hover {
-      border-color: var(--masters-green);
-      color: var(--masters-green);
+      background: #f0f0f0;
+      border-color: #888;
+      color: #222;
     }
     .lb-detail-row { display: none; }
     .lb-detail-row.open { display: table-row; }
     .lb-detail-row td {
       padding: 0;
-      background: #fafafa;
+      background: #f7f7f2;
+      border-right: none;
     }
     .lb-detail-inner {
-      padding: 0.8rem 1rem;
+      padding: 0.6rem 1rem;
+      border-top: 1px solid #ddd;
     }
     .lb-golfer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.4rem 0;
-      border-bottom: 1px solid #eee;
+      padding: 0.45rem 0.4rem;
+      border-bottom: 1px solid #e0e0d8;
       font-size: 0.85rem;
     }
     .lb-golfer-row:last-child { border-bottom: none; }
-    .lb-golfer-row.counting { font-weight: 500; color: var(--masters-dark); }
+    .lb-golfer-row.counting { font-weight: 600; color: #111; }
     .lb-golfer-row.not-counting { color: #aaa; }
     .lb-golfer-name { flex: 1; }
     .lb-golfer-tier {
       font-size: 0.7rem;
-      color: var(--text-muted);
+      color: #888;
       text-transform: uppercase;
       margin-right: 1rem;
       min-width: 40px;
+      font-weight: 600;
     }
     .lb-golfer-pos {
       min-width: 50px;
       text-align: center;
       font-size: 0.8rem;
+      color: #666;
     }
     .lb-golfer-score {
       min-width: 60px;
       text-align: right;
-      font-weight: 600;
+      font-weight: 700;
+      color: #222;
     }
     .lb-golfer-score.mc { color: #c0392b; }
     .lb-counting-label {
-      font-size: 0.7rem;
-      background: var(--masters-gold);
-      color: var(--masters-dark);
-      padding: 0.1rem 0.4rem;
-      border-radius: 3px;
+      font-size: 0.6rem;
+      background: var(--masters-green);
+      color: white;
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
       margin-left: 0.5rem;
-      font-weight: 600;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .lb-not-counting-label {
-      font-size: 0.7rem;
-      background: #eee;
-      color: #999;
-      padding: 0.1rem 0.4rem;
-      border-radius: 3px;
+      font-size: 0.6rem;
+      background: #ddd;
+      color: #888;
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
       margin-left: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .lb-loading {
       text-align: center;
       padding: 3rem;
-      color: var(--text-muted);
+      color: #888;
+      background: white;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
     }
     .lb-error {
       text-align: center;
@@ -451,13 +536,16 @@
 
   <!-- LEADERBOARD TAB -->
   <div class="panel" id="leaderboard-panel">
-    <div class="lb-header">
-      <h2>Pool Leaderboard</h2>
-      <div class="lb-updated">Best 4 of 7 golfers count <span class="lb-auto-tag">Live</span></div>
-      <div class="lb-updated" id="lb-last-updated"></div>
-    </div>
-    <div id="lb-content">
-      <div class="lb-loading">Loading live scores from Masters.com...</div>
+    <div class="lb-scoreboard">
+      <div class="lb-header">
+        <h2>Leaders</h2>
+        <div class="lb-updated">Best 4 of 7 golfers count <span class="lb-auto-tag">Live</span></div>
+        <div class="lb-updated" id="lb-last-updated"></div>
+      </div>
+      <div id="lb-content">
+        <div class="lb-loading">Loading live scores from Masters.com...</div>
+      </div>
+      <div class="lb-board-base"></div>
     </div>
   </div>
 
@@ -746,19 +834,26 @@ async function loadLeaderboard() {
     });
 
     // Render table
+    function posBadge(pos) {
+      if (pos === 1) return `<span class="lb-pos-badge gold">&#127942;</span>`;
+      if (pos === 2) return `<span class="lb-pos-badge silver">&#129352;</span>`;
+      if (pos === 3) return `<span class="lb-pos-badge bronze">&#129353;</span>`;
+      return `<span class="lb-pos-badge standard">${pos}</span>`;
+    }
+
     let html = `<div class="lb-table-wrap"><table class="lb-table">
       <thead><tr>
-        <th class="num" style="width:50px">Pos</th>
-        <th>Name</th>
+        <th class="num" style="width:55px">Pos</th>
+        <th>Player</th>
         <th class="num" style="width:90px">Total</th>
-        <th style="width:60px"></th>
+        <th style="width:65px"></th>
       </tr></thead><tbody>`;
 
     standings.forEach((s, idx) => {
-      const firstClass = s.pos === 1 ? " first-place" : "";
+      const rowClass = s.pos === 1 ? "first-place" : s.pos === 2 ? "second-place" : s.pos === 3 ? "third-place" : "";
       const totalDisplay = s.teamTotal !== null ? s.teamTotal : "—";
-      html += `<tr class="${firstClass}">
-        <td class="lb-pos num">${s.pos}</td>
+      html += `<tr class="${rowClass}">
+        <td class="lb-pos num">${posBadge(s.pos)}</td>
         <td class="lb-name">${s.name}</td>
         <td class="lb-score num">${totalDisplay}</td>
         <td class="num"><button class="lb-detail-toggle" data-idx="${idx}">Details</button></td>
