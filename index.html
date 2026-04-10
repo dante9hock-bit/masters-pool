@@ -274,8 +274,6 @@
     .lb-table tbody tr:hover { background: #f5f5f0; }
     .lb-table tbody tr.first-place { background: #fefce8; }
     .lb-table tbody tr.first-place:hover { background: #fef9c3; }
-    .lb-table tbody tr.second-place { background: #fafafa; }
-    .lb-table tbody tr.third-place { background: #fdf8f0; }
     .lb-table td {
       padding: 0.75rem 0.8rem;
       font-size: 0.95rem;
@@ -299,21 +297,15 @@
       font-size: 0.85rem;
       font-weight: 800;
     }
-    .lb-pos-badge.gold {
-      background: linear-gradient(135deg, #ffd700, #b8960c);
-      color: #3d2e00;
-      box-shadow: 0 2px 8px rgba(255,215,0,0.35);
-      font-size: 1rem;
+    .lb-pos-badge.jacket {
+      background: white;
+      width: 36px;
+      height: 36px;
+      padding: 1px;
     }
-    .lb-pos-badge.silver {
-      background: linear-gradient(135deg, #e0e0e0, #a0a0a0);
-      color: #333;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-    }
-    .lb-pos-badge.bronze {
-      background: linear-gradient(135deg, #cd7f32, #a0622d);
-      color: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    .lb-pos-badge.jacket svg {
+      width: 32px;
+      height: 32px;
     }
     .lb-pos-badge.standard {
       background: none;
@@ -373,7 +365,12 @@
     }
     .lb-golfer-row:last-child { border-bottom: none; }
     .lb-golfer-row.counting { font-weight: 600; color: #111; }
-    .lb-golfer-row.not-counting { color: #aaa; }
+    .lb-golfer-row.not-counting {
+      color: #999;
+      background: rgba(220, 53, 53, 0.06);
+      border-radius: 4px;
+      margin-bottom: 1px;
+    }
     .lb-golfer-name { flex: 1; }
     .lb-golfer-tier {
       font-size: 0.7rem;
@@ -835,9 +832,7 @@ async function loadLeaderboard() {
 
     // Render table
     function posBadge(pos) {
-      if (pos === 1) return `<span class="lb-pos-badge gold">&#127942;</span>`;
-      if (pos === 2) return `<span class="lb-pos-badge silver">&#129352;</span>`;
-      if (pos === 3) return `<span class="lb-pos-badge bronze">&#129353;</span>`;
+      if (pos === 1) return `<span class="lb-pos-badge jacket" title="Leader"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28C8 28 10 26 13 26C14 25 15 24 17 24L19 22H22L24 23L26 22L28 22L30 21L33 21L35 20L38 20L40 21L42 21L44 22L46 22L48 23L50 24L52 25L54 26L55 28L56 30L55 32L56 34L54 36L52 37L50 38L49 40L48 41L47 42L46 42L44 44L42 44L40 43L38 44L37 46L36 48L35 48L34 46L32 46L30 45L28 44L26 44L24 43L22 42L20 42L18 41L16 40L14 38L12 36L10 34L9 32L8 30Z" fill="#f9d71c" stroke="#006747" stroke-width="1.2"/><line x1="40" y1="12" x2="40" y2="38" stroke="#006747" stroke-width="1.5"/><path d="M40 12L40 19L48 15.5Z" fill="#c41e3a"/><circle cx="40" cy="11.5" r="1" fill="#006747"/></svg></span>`;
       return `<span class="lb-pos-badge standard">${pos}</span>`;
     }
 
@@ -850,7 +845,7 @@ async function loadLeaderboard() {
       </tr></thead><tbody>`;
 
     standings.forEach((s, idx) => {
-      const rowClass = s.pos === 1 ? "first-place" : s.pos === 2 ? "second-place" : s.pos === 3 ? "third-place" : "";
+      const rowClass = s.pos === 1 ? "first-place" : "";
       const totalDisplay = s.teamTotal !== null ? s.teamTotal : "—";
       html += `<tr class="${rowClass}">
         <td class="lb-pos num">${posBadge(s.pos)}</td>
