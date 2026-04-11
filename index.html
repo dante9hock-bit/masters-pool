@@ -695,34 +695,47 @@ function findPlayerScore(golferName, mastersPlayers) {
   return null;
 }
 
+// Helper: extract round strokes (handles both object {total:72} and plain number)
+function getRoundScore(roundData) {
+  if (!roundData) return null;
+  if (typeof roundData === "object" && roundData.total != null) {
+    const v = parseInt(roundData.total);
+    return isNaN(v) ? null : v;
+  }
+  const v = parseInt(roundData);
+  return isNaN(v) ? null : v;
+}
+
 function getGolferTotal(player) {
   // Returns total strokes as a number, handling missed cuts
   if (!player) return null;
 
-  const status = (player.status || "").toLowerCase();
+  const status = (player.status || "").toUpperCase();
 
-  // Missed cut: use R1+R2 actual scores + 80 for R3 + 80 for R4
-  if (status === "cut") {
-    const r1 = parseInt(player.round1) || 0;
-    const r2 = parseInt(player.round2) || 0;
-    return r1 + r2 + 80 + 80;
+  // Missed cut: use actual round scores where played, +80 for each unplayed round
+  if (status === "C" || status === "CUT" || status === "MC") {
+    const r1 = getRoundScore(player.round1);
+    const r2 = getRoundScore(player.round2);
+    const r3 = getRoundScore(player.round3);
+    const r4 = getRoundScore(player.round4);
+    return (r1 || 0) + (r2 || 0) + (r3 !== null ? r3 : 80) + (r4 !== null ? r4 : 80);
   }
 
   // Withdrawn or disqualified
-  if (status === "wd" || status === "dq") {
+  if (status === "WD" || status === "DQ") {
     return 999;
   }
 
-  // Active player: use total if available, else estimate from rounds
+  // Active player: use total if available
   const total = parseInt(player.total);
   if (!isNaN(total) && total > 0) return total;
 
-  // Sum available rounds
+  // Fallback: sum available rounds
   let sum = 0;
   let rounds = 0;
   for (const r of ["round1", "round2", "round3", "round4"]) {
-    const val = parseInt(player[r]);
-    if (!isNaN(val) && val > 0) {
+    const val = getRoundScore(player[r]);
+    if (val !== null && val > 0) {
       sum += val;
       rounds++;
     }
@@ -732,10 +745,10 @@ function getGolferTotal(player) {
 
 function formatTopar(player) {
   if (!player) return "—";
-  const status = (player.status || "").toLowerCase();
-  if (status === "cut") return "MC";
-  if (status === "wd") return "WD";
-  if (status === "dq") return "DQ";
+  const status = (player.status || "").toUpperCase();
+  if (status === "C" || status === "CUT" || status === "MC") return "MC";
+  if (status === "WD") return "WD";
+  if (status === "DQ") return "DQ";
   const topar = player.topar;
   if (topar === "E" || topar === 0 || topar === "0") return "E";
   if (topar !== undefined && topar !== null && topar !== "") return String(topar);
@@ -861,7 +874,7 @@ async function loadLeaderboard() {
         const label = isCounting
           ? `<span class="lb-counting-label">Counts</span>`
           : `<span class="lb-not-counting-label">Drop</span>`;
-        const scoreClass = g.status === "cut" ? " mc" : "";
+        const scoreClass = (g.status === "c" || g.status === "cut" || g.status === "mc") ? " mc" : "";
         const scoreDisplay = g.totalStrokes !== null ? g.totalStrokes : "—";
         const toparDisplay = g.topar !== "—" ? ` (${g.topar})` : "";
         html += `<div class="lb-golfer-row ${rowClass}">
