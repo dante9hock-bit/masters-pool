@@ -305,7 +305,8 @@
       background: white;
       border-left: 2px solid #222;
       border-right: 2px solid #222;
-      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin-bottom: 0;
     }
     .lb-board-base {
@@ -546,14 +547,54 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Responsive */
+    /* Responsive — tablet */
+    @media (max-width: 768px) {
+      .container { padding: 1.2rem 0.8rem; }
+      .lb-scoreboard { margin: 0 0 2rem; }
+      .lb-header { padding: 1.1rem 1.2rem 0.8rem; border-radius: 40px 40px 0 0; }
+      .lb-header h2 { font-size: 1.2rem; letter-spacing: 0.12em; }
+    }
+
+    /* Responsive — phone */
     @media (max-width: 600px) {
-      header h1 { font-size: 2rem; }
-      .tab-btn { padding: 0.8rem 0.7rem; font-size: 0.75rem; }
-      .container { padding: 1rem 0.8rem; }
+      header { padding: 1.4rem 1rem 1.2rem; }
+      header h1 { font-size: 1.7rem; letter-spacing: -0.01em; }
+      header .subtitle { font-size: 0.75rem; letter-spacing: 0.1em; }
+      .tabs { justify-content: stretch; }
+      .tab-btn { flex: 1; padding: 0.85rem 0.4rem; font-size: 0.7rem; letter-spacing: 0.03em; }
+      .container { padding: 0.8rem 0.5rem; }
       .pick-card-body { grid-template-columns: 1fr; }
-      .lb-table td { padding: 0.55rem 0.5rem; font-size: 0.85rem; }
-      .lb-table thead th { font-size: 0.6rem; padding: 0.5rem 0.5rem; }
+
+      /* Leaderboard scoreboard */
+      .lb-scoreboard { margin: 0 0 1.5rem; }
+      .lb-header { padding: 0.9rem 1rem 0.7rem; border-radius: 28px 28px 0 0; }
+      .lb-header h2 { font-size: 1.05rem; letter-spacing: 0.1em; }
+      .lb-updated { font-size: 0.7rem; }
+
+      /* Make table horizontally scrollable */
+      .lb-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .lb-table { min-width: 520px; }
+      .lb-table td { padding: 0.6rem 0.6rem; font-size: 0.85rem; }
+      .lb-table thead th { font-size: 0.62rem; padding: 0.5rem 0.6rem; letter-spacing: 0.06em; }
+      .lb-name { font-size: 0.9rem; }
+      .lb-score { font-size: 0.95rem; }
+
+      /* Rules */
+      .rules-content { max-width: 100%; }
+      .rules-content h2 { font-size: 1.3rem; }
+      .rules-card { padding: 1.2rem 1rem; }
+      .rule-item { gap: 0.75rem; margin-bottom: 1rem; }
+      .rule-text { font-size: 0.88rem; }
+      .scoring-example { padding: 0.9rem 1rem; }
+      .scoring-example table { font-size: 0.78rem; }
+    }
+
+    /* Scroll hint fade on table edges (mobile) */
+    @media (max-width: 600px) {
+      .lb-table-wrap { position: relative; }
     }
   </style>
 </head>
@@ -716,13 +757,32 @@ const CLUB_DATA = [
 // Sort by final score descending
 CLUB_DATA.sort((a, b) => b.finalScore - a.finalScore);
 
-// ========== MASTERS LOGO SVG ==========
-function mastersLogoSVG() {
-  return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28C8 28 10 26 13 26C14 25 15 24 17 24L19 22H22L24 23L26 22L28 22L30 21L33 21L35 20L38 20L40 21L42 21L44 22L46 22L48 23L50 24L52 25L54 26L55 28L56 30L55 32L56 34L54 36L52 37L50 38L49 40L48 41L47 42L46 42L44 44L42 44L40 43L38 44L37 46L36 48L35 48L34 46L32 46L30 45L28 44L26 44L24 43L22 42L20 42L18 41L16 40L14 38L12 36L10 34L9 32L8 30Z" fill="#f9d71c" stroke="#006747" stroke-width="1.2"/><line x1="40" y1="12" x2="40" y2="38" stroke="#006747" stroke-width="1.5"/><path d="M40 12L40 19L48 15.5Z" fill="#c41e3a"/><circle cx="40" cy="11.5" r="1" fill="#006747"/></svg>`;
+// ========== BROKEN CLUB SVG (1st place badge) ==========
+function golferSVG() {
+  return `<svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Upper shaft: grip (top-left) down to break -->
+    <line x1="7" y1="5" x2="28" y2="28" stroke="#444040" stroke-width="5" stroke-linecap="round"/>
+    <!-- Jagged break end on upper shaft -->
+    <polyline points="26,26 30,24 27,30 31,28" stroke="#444040" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    <!-- Lower shaft piece: angle shifts after break -->
+    <line x1="34" y1="35" x2="38" y2="47" stroke="#444040" stroke-width="5" stroke-linecap="round"/>
+    <!-- Jagged break start on lower shaft -->
+    <polyline points="33,33 37,31 34,37 38,35" stroke="#444040" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    <!-- Spark lines at break (clear gap between shafts) -->
+    <line x1="31" y1="31" x2="26" y2="36" stroke="#444040" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="31" y1="31" x2="36" y2="26" stroke="#444040" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="31" y1="31" x2="38" y2="32" stroke="#444040" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Club head (driver) - body -->
+    <path d="M36 46 Q33 52 37 58 Q44 63 55 59 Q62 53 59 45 Q56 39 48 39 L40 42 Z" fill="#444040"/>
+    <!-- Face grooves -->
+    <line x1="48" y1="40" x2="57" y2="47" stroke="white" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+    <line x1="46" y1="44" x2="55" y2="51" stroke="white" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+    <line x1="43" y1="48" x2="52" y2="55" stroke="white" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+  </svg>`;
 }
 
 function posBadge(pos) {
-  if (pos === 1) return `<span class="lb-pos-badge jacket" title="Leader">${mastersLogoSVG()}</span>`;
+  if (pos === 1) return `<span class="lb-pos-badge jacket" title="Leader">${golferSVG()}</span>`;
   return `<span class="lb-pos-badge standard">${pos}</span>`;
 }
 
