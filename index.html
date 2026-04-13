@@ -8,29 +8,29 @@
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     :root {
-      --primary: #666161;
-      --primary-light: #A5937B;
-      --accent: #AF9AC9;
-      --accent-light: #c4b4d9;
-      --bg: #E9E3DE;
+      --primary: #304C53;
+      --primary-light: #BC6C50;
+      --accent: #BC6C50;
+      --accent-light: #d4896e;
+      --bg: #AFE0E7;
       --bg-card: #ffffff;
-      --bg-dark: #666161;
-      --text-primary: #444040;
-      --text-secondary: #A5937B;
-      --border: #A5937B;
-      --success: #AF9AC9;
+      --bg-dark: #304C53;
+      --text-primary: #5A2F25;
+      --text-secondary: #304C53;
+      --border: #DDAD9C;
+      --success: #BC6C50;
       --danger: #dc2626;
-      --gold: #E3C49B;
+      --gold: #BC6C50;
       /* Legacy aliases */
       --masters-green: var(--primary);
       --masters-dark: var(--primary-light);
       --masters-gold: var(--accent);
       --masters-cream: var(--bg);
-      --masters-light-green: #f2eeea;
+      --masters-light-green: #f5e8e2;
       --text-dark: var(--text-primary);
       --text-muted: var(--text-secondary);
-      --shadow: 0 2px 12px rgba(102,97,97,0.08);
-      --shadow-lg: 0 8px 30px rgba(102,97,97,0.12);
+      --shadow: 0 2px 12px rgba(48,76,83,0.10);
+      --shadow-lg: 0 8px 30px rgba(48,76,83,0.16);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -249,15 +249,15 @@
       text-align: left;
       font-weight: 700;
       padding: 0.4rem 0.6rem;
-      border-bottom: 2px solid var(--primary);
-      color: var(--primary);
+      border-bottom: 2px solid #304C53;
+      color: #5A2F25;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
     .scoring-example table td {
       padding: 0.35rem 0.6rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #DDAD9C;
     }
 
     /* Pool Leaderboard -- Augusta scoreboard style */
@@ -271,9 +271,9 @@
       padding: 1.4rem 2rem 1rem;
       border-radius: 60px 60px 0 0;
       position: relative;
-      border: 2px solid #222;
+      border: 2px solid #304C53;
       border-bottom: none;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 -4px 20px rgba(48,76,83,0.12);
     }
     .lb-header h2 {
       font-family: 'Inter', sans-serif;
@@ -308,8 +308,8 @@
     }
     .lb-table-wrap {
       background: white;
-      border-left: 2px solid #222;
-      border-right: 2px solid #222;
+      border-left: 2px solid #304C53;
+      border-right: 2px solid #304C53;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin-bottom: 0;
@@ -328,7 +328,7 @@
     }
     .lb-table thead th {
       background: white;
-      color: #111;
+      color: #5A2F25;
       font-family: 'Inter', sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
@@ -336,23 +336,23 @@
       letter-spacing: 0.12em;
       padding: 0.6rem 0.8rem;
       text-align: left;
-      border-bottom: 2px solid #222;
-      border-top: 2px solid #222;
+      border-bottom: 2px solid #304C53;
+      border-top: 2px solid #304C53;
     }
     .lb-table thead th.num { text-align: center; }
     .lb-table tbody tr {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #c8ecf0;
       transition: background 0.1s;
     }
-    .lb-table tbody tr:last-child { border-bottom: 2px solid #222; }
-    .lb-table tbody tr:hover { background: #f5f5f0; }
-    .lb-table tbody tr.first-place { background: #f7f0e6; }
-    .lb-table tbody tr.first-place:hover { background: #f0e6d6; }
+    .lb-table tbody tr:last-child { border-bottom: 2px solid #304C53; }
+    .lb-table tbody tr:hover { background: #e8f6f8; }
+    .lb-table tbody tr.first-place { background: #fdf0ea; }
+    .lb-table tbody tr.first-place:hover { background: #f5e4d8; }
     .lb-table td {
       padding: 0.75rem 0.8rem;
       font-size: 0.95rem;
-      color: #111;
-      border-right: 1px solid #ddd;
+      color: #5A2F25;
+      border-right: 1px solid #c8ecf0;
     }
     .lb-table td:last-child { border-right: none; }
     .lb-table td.num { text-align: center; }
@@ -383,20 +383,20 @@
     }
     .lb-pos-badge.standard {
       background: none;
-      color: #333;
+      color: #5A2F25;
       font-size: 0.9rem;
       font-weight: 700;
     }
     .lb-name {
       font-weight: 700;
-      color: #111;
+      color: #5A2F25;
       font-size: 1rem;
       letter-spacing: 0.01em;
     }
     .lb-score {
       font-weight: 800;
       font-size: 1.1rem;
-      color: #111;
+      color: #5A2F25;
       font-family: 'Inter', sans-serif;
       letter-spacing: -0.02em;
     }
@@ -422,19 +422,19 @@
     .lb-detail-row.open { display: table-row; }
     .lb-detail-row td {
       padding: 0;
-      background: #f7f7f2;
+      background: #e8f6f8;
       border-right: none;
     }
     .lb-detail-inner {
       padding: 0.6rem 1rem;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid #c8ecf0;
     }
     .lb-golfer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.45rem 0.4rem;
-      border-bottom: 1px solid #e0e0d8;
+      border-bottom: 1px solid #c8ecf0;
       font-size: 0.85rem;
     }
     .lb-golfer-row:last-child { border-bottom: none; }
@@ -491,10 +491,10 @@
     .lb-loading {
       text-align: center;
       padding: 3rem;
-      color: #888;
+      color: #304C53;
       background: white;
-      border-left: 2px solid #222;
-      border-right: 2px solid #222;
+      border-left: 2px solid #304C53;
+      border-right: 2px solid #304C53;
     }
     .lb-error {
       text-align: center;
