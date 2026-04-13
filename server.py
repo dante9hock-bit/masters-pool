@@ -52,6 +52,15 @@ def load_picks():
     return result
 
 
+def load_club_leaderboard():
+    """Load club leaderboard from Supabase, sorted by final_score descending."""
+    rows = supabase_request(
+        "GET",
+        "club_leaderboard?select=name,rounds,total_pts,avg_pts,attendance,final_score&order=final_score.desc,name.asc"
+    )
+    return rows if rows is not None else []
+
+
 def save_pick(name, selections):
     """Save a single pick to Supabase."""
     url = f"{SUPABASE_URL}/rest/v1/picks"
@@ -150,6 +159,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps(picks).encode())
+        elif self.path == "/api/club":
+            rows = load_club_leaderboard()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(rows).encode())
         elif self.path == "/api/scores":
             data = fetch_masters_scores()
             self.send_response(200)
