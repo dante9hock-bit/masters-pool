@@ -3,37 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Shanks Golf Club Masters Pool</title>
+  <title>Shanks Social Club</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     :root {
-      --masters-green: #006747;
-      --masters-dark: #004d35;
-      --masters-gold: #d4af37;
-      --masters-cream: #fdf8f0;
-      --masters-light-green: #e8f5e9;
-      --text-dark: #1a1a1a;
-      --text-muted: #666;
-      --shadow: 0 2px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+      --primary: #000000;
+      --primary-light: #464545;
+      --accent: #00ACAC;
+      --accent-light: #33c3c3;
+      --bg: #DFDEDC;
+      --bg-card: #ffffff;
+      --bg-dark: #000000;
+      --text-primary: #000000;
+      --text-secondary: #464545;
+      --border: #A6A7A2;
+      --success: #00ACAC;
+      --danger: #dc2626;
+      /* Legacy aliases */
+      --masters-green: var(--primary);
+      --masters-dark: var(--primary-light);
+      --masters-gold: var(--accent);
+      --masters-cream: var(--bg);
+      --masters-light-green: #f0efed;
+      --text-dark: var(--text-primary);
+      --text-muted: var(--text-secondary);
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.10);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--masters-cream);
-      color: var(--text-dark);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
       min-height: 100vh;
     }
 
     /* Header */
     header {
-      background: var(--masters-green);
+      background: var(--primary);
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1.5rem;
       position: relative;
       overflow: hidden;
     }
@@ -43,11 +56,15 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
     }
+    header .club-logo {
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
     header h1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.01em;
       position: relative;
       text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
@@ -63,8 +80,8 @@
     header .gold-line {
       width: 80px;
       height: 2px;
-      background: var(--masters-gold);
-      margin: 1rem auto 0;
+      background: var(--accent);
+      margin: 0.8rem auto 0;
       position: relative;
     }
 
@@ -73,7 +90,7 @@
       display: flex;
       justify-content: center;
       gap: 0;
-      background: var(--masters-dark);
+      background: var(--bg-dark);
       padding: 0;
     }
     .tab-btn {
@@ -93,7 +110,7 @@
     .tab-btn:hover { color: white; background: rgba(255,255,255,0.05); }
     .tab-btn.active {
       color: white;
-      border-bottom-color: var(--masters-gold);
+      border-bottom-color: var(--accent);
       background: rgba(255,255,255,0.08);
     }
 
@@ -102,13 +119,15 @@
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* Leaderboard */
+    /* Leaderboard empty state */
     .leaderboard-empty {
       text-align: center;
       padding: 4rem 1rem;
       color: var(--text-muted);
     }
     .leaderboard-empty .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* Pick cards (kept for Masters board compatibility) */
     .pick-card {
       background: white;
       border-radius: 12px;
@@ -117,7 +136,7 @@
       overflow: hidden;
     }
     .pick-card-header {
-      background: var(--masters-green);
+      background: var(--primary);
       color: white;
       padding: 0.9rem 1.2rem;
       display: flex;
@@ -127,20 +146,6 @@
     .pick-card-header h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
-    }
-    .pick-card-header .delete-btn {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.3);
-      color: rgba(255,255,255,0.7);
-      font-size: 0.75rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .pick-card-header .delete-btn:hover {
-      background: rgba(255,255,255,0.15);
-      color: white;
     }
     .pick-card-body {
       padding: 1rem 1.2rem;
@@ -165,7 +170,7 @@
     }
     .pick-golfer {
       font-weight: 500;
-      color: var(--masters-dark);
+      color: var(--primary-light);
     }
 
     /* Rules panel */
@@ -176,7 +181,9 @@
     .rules-content h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem;
-      color: var(--masters-dark);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
       text-align: center;
       margin-bottom: 1.5rem;
     }
@@ -186,8 +193,72 @@
       box-shadow: var(--shadow);
       padding: 2rem;
     }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .rule-item:last-child { margin-bottom: 0; }
+    .rule-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .rule-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+    .scoring-example {
+      background: var(--masters-light-green);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      margin-top: 1.5rem;
+    }
+    .scoring-example .example-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .scoring-example p {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #333;
+    }
+    .scoring-example table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+    }
+    .scoring-example table th {
+      text-align: left;
+      font-weight: 700;
+      padding: 0.4rem 0.6rem;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .scoring-example table td {
+      padding: 0.35rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-    /* Pool Leaderboard — Augusta scoreboard style */
+    /* Pool Leaderboard -- Augusta scoreboard style */
     .lb-scoreboard {
       max-width: 860px;
       margin: 0 auto 2rem;
@@ -206,7 +277,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 1.5rem;
       font-weight: 800;
-      color: #111;
+      color: var(--text-primary);
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
@@ -218,7 +289,7 @@
     }
     .lb-auto-tag {
       display: inline-block;
-      background: #c0392b;
+      background: var(--danger);
       color: white;
       font-size: 0.6rem;
       font-weight: 700;
@@ -241,10 +312,10 @@
       margin-bottom: 0;
     }
     .lb-board-base {
-      background: var(--masters-green);
+      background: var(--primary);
       height: 18px;
       border-radius: 0 0 4px 4px;
-      border: 2px solid #1a4d35;
+      border: 2px solid var(--primary-light);
       border-top: none;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
@@ -392,10 +463,10 @@
       font-weight: 700;
       color: #222;
     }
-    .lb-golfer-score.mc { color: #c0392b; }
+    .lb-golfer-score.mc { color: var(--danger); }
     .lb-counting-label {
       font-size: 0.6rem;
-      background: var(--masters-green);
+      background: var(--success);
       color: white;
       padding: 0.15rem 0.4rem;
       border-radius: 2px;
@@ -406,8 +477,8 @@
     }
     .lb-not-counting-label {
       font-size: 0.6rem;
-      background: #ddd;
-      color: #888;
+      background: var(--border);
+      color: var(--text-secondary);
       padding: 0.15rem 0.4rem;
       border-radius: 2px;
       margin-left: 0.5rem;
@@ -425,10 +496,14 @@
     .lb-error {
       text-align: center;
       padding: 2rem;
-      color: #c0392b;
+      color: var(--danger);
       background: #fdecea;
       border-radius: 8px;
     }
+    /* Zero-rounds row */
+    .lb-table tbody tr.zero-rounds { color: #999; }
+    .lb-table tbody tr.zero-rounds .lb-name { color: #999; font-weight: 500; }
+    .lb-table tbody tr.zero-rounds .lb-score { color: #999; font-weight: 500; }
 
     /* Next page button */
     .next-page-wrap {
@@ -437,12 +512,12 @@
       padding-bottom: 1rem;
     }
     .next-page-btn {
-      background: var(--masters-green);
+      background: var(--primary);
       color: white;
       border: none;
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 600;
       padding: 0.75rem 2rem;
       border-radius: 8px;
       cursor: pointer;
@@ -450,7 +525,7 @@
       letter-spacing: 0.03em;
     }
     .next-page-btn:hover {
-      background: var(--masters-dark);
+      background: var(--primary-light);
       transform: translateY(-1px);
     }
     .next-page-btn::after {
@@ -463,7 +538,7 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: var(--masters-dark);
+      background: var(--primary);
       color: white;
       padding: 1rem 2rem;
       border-radius: 10px;
@@ -477,82 +552,179 @@
     /* Responsive */
     @media (max-width: 600px) {
       header h1 { font-size: 2rem; }
-      .tab-btn { padding: 0.8rem 1rem; font-size: 0.8rem; }
+      .tab-btn { padding: 0.8rem 0.7rem; font-size: 0.75rem; }
       .container { padding: 1rem 0.8rem; }
-      .golfer-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
       .pick-card-body { grid-template-columns: 1fr; }
+      .lb-table td { padding: 0.55rem 0.5rem; font-size: 0.85rem; }
+      .lb-table thead th { font-size: 0.6rem; padding: 0.5rem 0.5rem; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>The Shanks Golf Club<br>Masters Pool</h1>
-  <div class="subtitle">Augusta National &middot; 2026</div>
+  <div class="club-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200" width="140" height="127" fill="none">
+      <!-- Arched text: SHANKS SOCIAL CLUB -->
+      <defs>
+        <path id="archPath" d="M 18,115 A 92,92 0 0,1 202,115" fill="none"/>
+      </defs>
+      <text font-family="Inter, sans-serif" font-size="10.5" font-weight="800" fill="#00ACAC" letter-spacing="3.5" text-anchor="middle">
+        <textPath href="#archPath" startOffset="50%">SHANKS SOCIAL CLUB</textPath>
+      </text>
+      <!-- Crossed golf clubs behind shield -->
+      <g transform="translate(110,108)">
+        <!-- Left club shaft -->
+        <line x1="-44" y1="-58" x2="34" y2="56" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Left club head (iron) -->
+        <path d="M-46,-62 L-52,-68 L-44,-70 L-40,-62 Z" fill="rgba(255,255,255,0.5)"/>
+        <!-- Left grip -->
+        <line x1="30" y1="50" x2="36" y2="60" stroke="rgba(255,255,255,0.35)" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Right club shaft -->
+        <line x1="44" y1="-58" x2="-34" y2="56" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Right club head (iron) -->
+        <path d="M46,-62 L52,-68 L44,-70 L40,-62 Z" fill="rgba(255,255,255,0.5)"/>
+        <!-- Right grip -->
+        <line x1="-30" y1="50" x2="-36" y2="60" stroke="rgba(255,255,255,0.35)" stroke-width="3.5" stroke-linecap="round"/>
+      </g>
+      <!-- Left laurel branch -->
+      <g transform="translate(30, 68)" opacity="0.9">
+        <path d="M24 0C20 8 14 14 10 22C6 30 3 38 2 46C1 54 2 60 4 66" stroke="#00ACAC" stroke-width="1.5" fill="none"/>
+        <ellipse cx="10" cy="14" rx="6" ry="9" transform="rotate(-30 10 14)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="6" cy="28" rx="6" ry="9" transform="rotate(-18 6 28)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="4" cy="42" rx="6" ry="9" transform="rotate(-6 4 42)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="3" cy="56" rx="5" ry="8" transform="rotate(6 3 56)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="16" cy="6" rx="5" ry="7" transform="rotate(-38 16 6)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.6"/>
+      </g>
+      <!-- Right laurel branch -->
+      <g transform="translate(168, 68) scale(-1,1)" opacity="0.9">
+        <path d="M24 0C20 8 14 14 10 22C6 30 3 38 2 46C1 54 2 60 4 66" stroke="#00ACAC" stroke-width="1.5" fill="none"/>
+        <ellipse cx="10" cy="14" rx="6" ry="9" transform="rotate(-30 10 14)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="6" cy="28" rx="6" ry="9" transform="rotate(-18 6 28)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="4" cy="42" rx="6" ry="9" transform="rotate(-6 4 42)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="3" cy="56" rx="5" ry="8" transform="rotate(6 3 56)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.7"/>
+        <ellipse cx="16" cy="6" rx="5" ry="7" transform="rotate(-38 16 6)" fill="none" stroke="#00ACAC" stroke-width="1" opacity="0.6"/>
+      </g>
+      <!-- Shield shape -->
+      <g transform="translate(110,108)">
+        <path d="M0-50 L36-36 L42-10 L38 16 L26 36 L0 50 L-26 36 L-38 16 L-42-10 L-36-36 Z"
+              fill="#0d1f0d" stroke="#00ACAC" stroke-width="1.8"/>
+        <!-- Shield inner border -->
+        <path d="M0-42 L30-30 L35-8 L32 14 L22 30 L0 42 L-22 30 L-32 14 L-35-8 L-30-30 Z"
+              fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        <!-- SC letters - serif font, centered -->
+        <text x="0" y="8" font-family="Playfair Display, Georgia, serif" font-size="30" font-weight="700" fill="white" text-anchor="middle" letter-spacing="4">SC</text>
+      </g>
+      <!-- Golf ball at top of shield -->
+      <g transform="translate(110,56)">
+        <circle cx="0" cy="0" r="10" fill="white"/>
+        <circle cx="0" cy="0" r="9.5" fill="none" stroke="#e0e0e0" stroke-width="0.4"/>
+        <!-- Dimple pattern -->
+        <circle cx="-3" cy="-3" r="1.1" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <circle cx="3" cy="-3" r="1.1" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <circle cx="0" cy="1" r="1.1" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <circle cx="-3" cy="4" r="1" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <circle cx="3" cy="4" r="1" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <circle cx="0" cy="-5.5" r="0.9" fill="none" stroke="#ccc" stroke-width="0.4"/>
+        <circle cx="-5.5" cy="0" r="0.9" fill="none" stroke="#ccc" stroke-width="0.4"/>
+        <circle cx="5.5" cy="0" r="0.9" fill="none" stroke="#ccc" stroke-width="0.4"/>
+        <!-- Crack lines radiating from ball -->
+        <line x1="-7" y1="-7" x2="-14" y2="-14" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="-14" y1="-14" x2="-18" y2="-12" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" stroke-linecap="round"/>
+        <line x1="-14" y1="-14" x2="-16" y2="-20" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" stroke-linecap="round"/>
+        <line x1="7" y1="-7" x2="14" y2="-14" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" stroke-linecap="round"/>
+        <line x1="14" y1="-14" x2="18" y2="-12" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" stroke-linecap="round"/>
+        <line x1="14" y1="-14" x2="16" y2="-20" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" stroke-linecap="round"/>
+        <line x1="0" y1="-10" x2="0" y2="-18" stroke="rgba(255,255,255,0.35)" stroke-width="0.7" stroke-linecap="round"/>
+        <line x1="0" y1="-18" x2="-3" y2="-22" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" stroke-linecap="round"/>
+        <line x1="0" y1="-18" x2="3" y2="-22" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" stroke-linecap="round"/>
+      </g>
+      <!-- EST. text below shield -->
+      <text x="110" y="178" font-family="Inter, sans-serif" font-size="7.5" font-weight="600" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="2.5">EST. 2025</text>
+    </svg>
+  </div>
+  <h1>Shanks Social Club</h1>
+  <div class="subtitle">Established by Mates &middot; Fuelled by Competition</div>
   <div class="gold-line"></div>
 </header>
 
 <nav class="tabs">
   <button class="tab-btn" data-tab="rules">Rules</button>
-  <button class="tab-btn" data-tab="board">View All Picks</button>
-  <button class="tab-btn active" data-tab="leaderboard">Leaderboard</button>
+  <button class="tab-btn active" data-tab="club">Club Leaderboard</button>
+  <button class="tab-btn" data-tab="masters">Masters 2026</button>
 </nav>
 
 <div class="container">
   <!-- RULES TAB -->
   <div class="panel" id="rules-panel">
     <div class="rules-content">
-      <h2>Pool Rules</h2>
+      <h2>Club Scoring Rules</h2>
       <div class="rules-card">
         <div class="rule-item">
           <span class="rule-number">1</span>
-          <span class="rule-text"><strong>Pick one golfer</strong> from each of the seven tiers (7 golfers total).</span>
+          <span class="rule-text"><strong>Points are based on how many players play that round.</strong> First place receives points equal to the number of players. Second place receives (players - 2). Third place receives (players - 4). After third, each subsequent position drops by 1 point.</span>
         </div>
         <div class="rule-item">
           <span class="rule-number">2</span>
-          <span class="rule-text">At the end of the tournament, your <strong>best four golfers' scores</strong> count towards your total.</span>
+          <span class="rule-text"><strong>CTP (Closest to Pin)</strong> earns 1 bonus point per round.</span>
         </div>
         <div class="rule-item">
           <span class="rule-number">3</span>
-          <span class="rule-text">The <strong>lowest total strokes wins</strong> the pool.</span>
+          <span class="rule-text"><strong>LD (Longest Drive)</strong> earns 1 bonus point per round.</span>
         </div>
         <div class="rule-item">
           <span class="rule-number">4</span>
-          <span class="rule-text">Any golfer who <strong>misses the cut</strong> receives a score of <strong>+80 strokes</strong> for each of Rounds 3 and 4.</span>
+          <span class="rule-text"><strong>Attendance bonus:</strong> 0.5 points for every round played.</span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-number">5</span>
+          <span class="rule-text"><strong>Final Score</strong> = Average Points per Round + Total Attendance Bonus. Highest score wins.</span>
         </div>
         <div class="scoring-example">
-          <div class="example-label">Scoring Example</div>
-          <p>Rory McIlroy won last year's Masters with <strong>277 total strokes</strong>. If he was one of your picks, 277 would be his contribution to your team total. Your best 4 of 7 golfers' scores are added together for your final score.</p>
+          <div class="example-label">Scoring Example &mdash; 10 Players</div>
+          <table>
+            <thead>
+              <tr><th>Pos</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>5th</th><th>6th</th><th>7th</th><th>8th</th><th>9th+</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pts</td><td>10</td><td>8</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:0.8rem">If only 6 players: 1st = 6, 2nd = 4, 3rd = 2, 4th = 1, 5th = 0, 6th = 0.</p>
         </div>
       </div>
       <div class="next-page-wrap">
-        <button class="next-page-btn" data-next="leaderboard">Next Page</button>
+        <button class="next-page-btn" data-next="club">View Club Leaderboard</button>
       </div>
     </div>
   </div>
 
-  <!-- LEADERBOARD TAB -->
-  <div class="panel" id="leaderboard-panel">
+  <!-- CLUB LEADERBOARD TAB -->
+  <div class="panel active" id="club-panel">
     <div class="lb-scoreboard">
       <div class="lb-header">
-        <h2>Leaders</h2>
-        <div class="lb-updated">Best 4 of 7 golfers count <span class="lb-auto-tag">Live</span></div>
-        <div class="lb-updated" id="lb-last-updated"></div>
+        <h2>Club Leaderboard</h2>
+        <div class="lb-updated">Sorted by Final Score (Avg Pts + Attendance)</div>
       </div>
-      <div id="lb-content">
-        <div class="lb-loading">Loading live scores from Masters.com...</div>
+      <div id="club-lb-content">
+        <div class="lb-loading">Loading club leaderboard...</div>
       </div>
       <div class="lb-board-base"></div>
     </div>
   </div>
 
-  <!-- BOARD TAB -->
-  <div class="panel" id="board-panel">
-    <div id="board-content">
-      <div class="leaderboard-empty">
-        <div class="icon">&#9971;</div>
-        <p>No picks submitted yet. Be the first!</p>
+  <!-- MASTERS 2026 TAB -->
+  <div class="panel" id="masters-panel">
+    <div class="lb-scoreboard">
+      <div class="lb-header">
+        <h2>Masters 2026</h2>
+        <div class="lb-updated">Best 4 of 7 golfers count</div>
+        <div class="lb-updated" id="lb-last-updated"></div>
       </div>
+      <div id="lb-content">
+        <div class="lb-loading">Loading scores from Masters.com...</div>
+      </div>
+      <div class="lb-board-base"></div>
     </div>
   </div>
 </div>
@@ -560,6 +732,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ========== MASTERS TIERS (kept for Masters 2026 tab) ==========
 const TIERS = [
   {
     name: "Tier 1",
@@ -569,7 +742,7 @@ const TIERS = [
   {
     name: "Tier 2",
     label: "Contenders",
-    golfers: ["Rory McIlroy", "Ludvig Åberg", "Xander Schauffele"]
+    golfers: ["Rory McIlroy", "Ludvig \u00c5berg", "Xander Schauffele"]
   },
   {
     name: "Tier 3",
@@ -579,26 +752,64 @@ const TIERS = [
   {
     name: "Tier 4",
     label: "Realistic Dark Horses",
-    golfers: ["Jordan Spieth", "Brooks Koepka", "Viktor Hovland", "Si Woo Kim", "Chris Gotterup", "Jake Knapp", "Adam Scott", "Russell Henley", "Akshay Bhatia", "Nicolai Højgaard", "Shane Lowry", "Justin Thomas", "Patrick Cantlay", "J.J. Spaun", "Jason Day", "Tyrrell Hatton", "Jacob Bridgeman", "Corey Conners", "Maverick McNealy", "Cameron Smith"]
+    golfers: ["Jordan Spieth", "Brooks Koepka", "Viktor Hovland", "Si Woo Kim", "Chris Gotterup", "Jake Knapp", "Adam Scott", "Russell Henley", "Akshay Bhatia", "Nicolai H\u00f8jgaard", "Shane Lowry", "Justin Thomas", "Patrick Cantlay", "J.J. Spaun", "Jason Day", "Tyrrell Hatton", "Jacob Bridgeman", "Corey Conners", "Maverick McNealy", "Cameron Smith"]
   },
   {
     name: "Tier 5",
     label: "Long Shots with Upside",
-    golfers: ["Marco Penge", "Sam Burns", "Gary Woodland", "Sungjae Im", "Daniel Berger", "Harris English", "Rasmus Højgaard", "Aldrich Potgieter", "Aaron Rai", "Alex Noren", "Brian Harman", "Kurt Kitayama", "Ben Griffin", "Max Homa"]
+    golfers: ["Marco Penge", "Sam Burns", "Gary Woodland", "Sungjae Im", "Daniel Berger", "Harris English", "Rasmus H\u00f8jgaard", "Aldrich Potgieter", "Aaron Rai", "Alex Noren", "Brian Harman", "Kurt Kitayama", "Ben Griffin", "Max Homa"]
   },
   {
     name: "Tier 6",
     label: "Big Outsiders",
-    golfers: ["Casey Jarvis", "Harry Hall", "Ryan Fox", "Sam Stevens", "Ryan Gerard", "Wyndham Clark", "Keegan Bradley", "Michael Kim", "Nico Echavarria", "Rasmus Neergaard-Petersen", "Max Greyserman", "Nick Taylor", "Sergio Garcia", "Haotong Li", "Dustin Johnson", "Sami Välimäki", "John Keefer", "Tom McKibbin", "Kristoffer Reitan", "Carlos Ortiz", "Matt McCarty"]
+    golfers: ["Casey Jarvis", "Harry Hall", "Ryan Fox", "Sam Stevens", "Ryan Gerard", "Wyndham Clark", "Keegan Bradley", "Michael Kim", "Nico Echavarria", "Rasmus Neergaard-Petersen", "Max Greyserman", "Nick Taylor", "Sergio Garcia", "Haotong Li", "Dustin Johnson", "Sami V\u00e4lim\u00e4ki", "John Keefer", "Tom McKibbin", "Kristoffer Reitan", "Carlos Ortiz", "Matt McCarty"]
   },
   {
     name: "Tier 7",
     label: "Ceremonial / No-Hopers",
-    golfers: ["Michael Brennan", "Andrew Novak", "Danny Willett", "Charl Schwartzel", "Zach Johnson", "Bubba Watson", "Ethan Fang", "Davis Riley", "Naoyuki Kataoka", "Mason Howell", "Brian Campbell", "Angel Cabrera", "Fifa Laopakdee", "Jackson Herrington", "Mateo Pulcini", "Fred Couples", "Brandon Holtz", "Mike Weir", "José María Olazábal", "Vijay Singh"]
+    golfers: ["Michael Brennan", "Andrew Novak", "Danny Willett", "Charl Schwartzel", "Zach Johnson", "Bubba Watson", "Ethan Fang", "Davis Riley", "Naoyuki Kataoka", "Mason Howell", "Brian Campbell", "Angel Cabrera", "Fifa Laopakdee", "Jackson Herrington", "Mateo Pulcini", "Fred Couples", "Brandon Holtz", "Mike Weir", "Jos\u00e9 Mar\u00eda Olaz\u00e1bal", "Vijay Singh"]
   }
 ];
 
-// Tab switching
+// ========== CLUB LEADERBOARD DATA ==========
+const CLUB_DATA = [
+  { name: "Bailey S", rounds: 3, totalPts: 45, avgPts: 15, attendance: 1.5, finalScore: 16.5 },
+  { name: "Ryan", rounds: 4, totalPts: 55, avgPts: 13.75, attendance: 2, finalScore: 15.75 },
+  { name: "Chris", rounds: 4, totalPts: 50, avgPts: 12.5, attendance: 2, finalScore: 14.5 },
+  { name: "Bell", rounds: 3, totalPts: 38, avgPts: 12.67, attendance: 1.5, finalScore: 14.17 },
+  { name: "Alex", rounds: 4, totalPts: 48, avgPts: 12, attendance: 2, finalScore: 14 },
+  { name: "Hen", rounds: 3, totalPts: 36, avgPts: 12, attendance: 1.5, finalScore: 13.5 },
+  { name: "Cracknell", rounds: 2, totalPts: 25, avgPts: 12.5, attendance: 1, finalScore: 13.5 },
+  { name: "Harris", rounds: 4, totalPts: 45, avgPts: 11.25, attendance: 2, finalScore: 13.25 },
+  { name: "Greeny", rounds: 4, totalPts: 44, avgPts: 11, attendance: 2, finalScore: 13 },
+  { name: "Cain", rounds: 3, totalPts: 34, avgPts: 11.33, attendance: 1.5, finalScore: 12.83 },
+  { name: "Lynch", rounds: 4, totalPts: 43, avgPts: 10.75, attendance: 2, finalScore: 12.75 },
+  { name: "Aussie", rounds: 3, totalPts: 33, avgPts: 11, attendance: 1.5, finalScore: 12.5 },
+  { name: "Toast", rounds: 4, totalPts: 41, avgPts: 10.25, attendance: 2, finalScore: 12.25 },
+  { name: "Rourkey", rounds: 3, totalPts: 32, avgPts: 10.67, attendance: 1.5, finalScore: 12.17 },
+  { name: "Dante", rounds: 3, totalPts: 31, avgPts: 10.33, attendance: 1.5, finalScore: 11.83 },
+  { name: "Ben", rounds: 2, totalPts: 21, avgPts: 10.5, attendance: 1, finalScore: 11.5 },
+  { name: "Matt K", rounds: 2, totalPts: 21, avgPts: 10.5, attendance: 1, finalScore: 11.5 },
+  { name: "Evan", rounds: 1, totalPts: 11, avgPts: 11, attendance: 0, finalScore: 11 },
+  { name: "Stoj", rounds: 1, totalPts: 8, avgPts: 8, attendance: 0.5, finalScore: 8.5 },
+  { name: "Jordan H", rounds: 0, totalPts: 0, avgPts: 0, attendance: 0, finalScore: 0 },
+  { name: "Reece", rounds: 0, totalPts: 0, avgPts: 0, attendance: 0, finalScore: 0 }
+];
+
+// Sort by final score descending
+CLUB_DATA.sort((a, b) => b.finalScore - a.finalScore);
+
+// ========== MASTERS LOGO SVG ==========
+function mastersLogoSVG() {
+  return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28C8 28 10 26 13 26C14 25 15 24 17 24L19 22H22L24 23L26 22L28 22L30 21L33 21L35 20L38 20L40 21L42 21L44 22L46 22L48 23L50 24L52 25L54 26L55 28L56 30L55 32L56 34L54 36L52 37L50 38L49 40L48 41L47 42L46 42L44 44L42 44L40 43L38 44L37 46L36 48L35 48L34 46L32 46L30 45L28 44L26 44L24 43L22 42L20 42L18 41L16 40L14 38L12 36L10 34L9 32L8 30Z" fill="#f9d71c" stroke="#006747" stroke-width="1.2"/><line x1="40" y1="12" x2="40" y2="38" stroke="#006747" stroke-width="1.5"/><path d="M40 12L40 19L48 15.5Z" fill="#c41e3a"/><circle cx="40" cy="11.5" r="1" fill="#006747"/></svg>`;
+}
+
+function posBadge(pos) {
+  if (pos === 1) return `<span class="lb-pos-badge jacket" title="Leader">${mastersLogoSVG()}</span>`;
+  return `<span class="lb-pos-badge standard">${pos}</span>`;
+}
+
+// ========== TAB SWITCHING ==========
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
 });
@@ -606,8 +817,8 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === `${tab}-panel`));
-  if (tab === "board") loadBoard();
-  if (tab === "leaderboard") loadLeaderboard();
+  if (tab === "masters") loadLeaderboard();
+  if (tab === "club") renderClubLeaderboard();
 }
 
 // Next page buttons
@@ -618,49 +829,66 @@ document.querySelectorAll(".next-page-btn").forEach(btn => {
   });
 });
 
-// Load board
-async function loadBoard() {
-  try {
-    const res = await fetch("/api/picks");
-    const picks = await res.json();
-    const names = Object.keys(picks);
-    const content = document.getElementById("board-content");
+// ========== CLUB LEADERBOARD RENDER ==========
+function renderClubLeaderboard() {
+  const content = document.getElementById("club-lb-content");
 
-    if (names.length === 0) {
-      content.innerHTML = `<div class="leaderboard-empty"><div class="icon">&#9971;</div><p>No picks submitted yet. Be the first!</p></div>`;
-      return;
-    }
+  // Separate active players from zero-round players
+  const active = CLUB_DATA.filter(p => p.rounds > 0);
+  const inactive = CLUB_DATA.filter(p => p.rounds === 0);
 
-    content.innerHTML = names.map(name => {
-      const sels = picks[name];
-      const rows = TIERS.map((tier, i) => {
-        const tierNum = i + 1;
-        return `<div class="pick-row">
-          <span class="pick-tier">${tier.name}</span>
-          <span class="pick-golfer">${sels[tierNum] || "—"}</span>
-        </div>`;
-      }).join("");
-      return `<div class="pick-card">
-        <div class="pick-card-header">
-          <h3>${name}</h3>
-        </div>
-        <div class="pick-card-body">${rows}</div>
-      </div>`;
-    }).join("");
-  } catch {
-    document.getElementById("board-content").innerHTML =
-      `<div class="leaderboard-empty"><p>Could not load picks.</p></div>`;
-  }
+  // Assign positions to active players
+  active.forEach((p, i) => {
+    if (i === 0) { p.pos = 1; }
+    else if (p.finalScore === active[i - 1].finalScore) { p.pos = active[i - 1].pos; }
+    else { p.pos = i + 1; }
+  });
+
+  let html = `<div class="lb-table-wrap"><table class="lb-table">
+    <thead><tr>
+      <th class="num" style="width:50px">Pos</th>
+      <th>Player</th>
+      <th class="num" style="width:70px">Rounds</th>
+      <th class="num" style="width:80px">Avg Pts</th>
+      <th class="num" style="width:80px">Attend.</th>
+      <th class="num" style="width:90px">Final</th>
+    </tr></thead><tbody>`;
+
+  active.forEach(p => {
+    const rowClass = p.pos === 1 ? "first-place" : "";
+    html += `<tr class="${rowClass}">
+      <td class="lb-pos num">${posBadge(p.pos)}</td>
+      <td class="lb-name">${p.name}</td>
+      <td class="num">${p.rounds}</td>
+      <td class="num">${p.avgPts.toFixed(2)}</td>
+      <td class="num">${p.attendance.toFixed(1)}</td>
+      <td class="lb-score num">${p.finalScore.toFixed(2)}</td>
+    </tr>`;
+  });
+
+  // Zero-rounds players at bottom
+  inactive.forEach(p => {
+    html += `<tr class="zero-rounds">
+      <td class="lb-pos num">&mdash;</td>
+      <td class="lb-name">${p.name}</td>
+      <td class="num">0</td>
+      <td class="num">&mdash;</td>
+      <td class="num">&mdash;</td>
+      <td class="lb-score num">&mdash;</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+  content.innerHTML = html;
 }
 
-// ---- LEADERBOARD ----
+// ========== MASTERS LEADERBOARD ==========
 let lbInterval = null;
 
-// Normalize names for fuzzy matching between our list and Masters feed
 function normalizeName(name) {
   if (!name) return "";
   return name
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")  // strip accents
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[.\-']/g, "")
     .replace(/\s+/g, " ")
     .trim()
@@ -670,7 +898,6 @@ function normalizeName(name) {
 function findPlayerScore(golferName, mastersPlayers) {
   if (!golferName) return null;
   const norm = normalizeName(golferName);
-  // Try exact normalized match on full_name, display_name, first+last
   for (const p of mastersPlayers) {
     const candidates = [
       p.full_name || "",
@@ -681,7 +908,6 @@ function findPlayerScore(golferName, mastersPlayers) {
       if (normalizeName(c) === norm) return p;
     }
   }
-  // Fuzzy: check if last name matches and first initial matches
   const parts = norm.split(" ");
   if (parts.length >= 2) {
     const firstName = parts[0];
@@ -695,7 +921,6 @@ function findPlayerScore(golferName, mastersPlayers) {
   return null;
 }
 
-// Helper: extract round strokes (handles both object {total:72} and plain number)
 function getRoundScore(roundData) {
   if (!roundData) return null;
   if (typeof roundData === "object" && roundData.total != null) {
@@ -707,12 +932,8 @@ function getRoundScore(roundData) {
 }
 
 function getGolferTotal(player) {
-  // Returns total strokes as a number, handling missed cuts
   if (!player) return null;
-
   const status = (player.status || "").toUpperCase();
-
-  // Missed cut: use actual round scores where played, +80 for each unplayed round
   if (status === "C" || status === "CUT" || status === "MC") {
     const r1 = getRoundScore(player.round1);
     const r2 = getRoundScore(player.round2);
@@ -720,31 +941,20 @@ function getGolferTotal(player) {
     const r4 = getRoundScore(player.round4);
     return (r1 || 0) + (r2 || 0) + (r3 !== null ? r3 : 80) + (r4 !== null ? r4 : 80);
   }
-
-  // Withdrawn or disqualified
-  if (status === "WD" || status === "DQ") {
-    return 999;
-  }
-
-  // Active player: use total if available
+  if (status === "WD" || status === "DQ") return 999;
   const total = parseInt(player.total);
   if (!isNaN(total) && total > 0) return total;
-
-  // Fallback: sum available rounds
   let sum = 0;
   let rounds = 0;
   for (const r of ["round1", "round2", "round3", "round4"]) {
     const val = getRoundScore(player[r]);
-    if (val !== null && val > 0) {
-      sum += val;
-      rounds++;
-    }
+    if (val !== null && val > 0) { sum += val; rounds++; }
   }
   return rounds > 0 ? sum : null;
 }
 
 function formatTopar(player) {
-  if (!player) return "—";
+  if (!player) return "\u2014";
   const status = (player.status || "").toUpperCase();
   if (status === "C" || status === "CUT" || status === "MC") return "MC";
   if (status === "WD") return "WD";
@@ -752,7 +962,7 @@ function formatTopar(player) {
   const topar = player.topar;
   if (topar === "E" || topar === 0 || topar === "0") return "E";
   if (topar !== undefined && topar !== null && topar !== "") return String(topar);
-  return "—";
+  return "\u2014";
 }
 
 async function loadLeaderboard() {
@@ -773,22 +983,17 @@ async function loadLeaderboard() {
     }
 
     const mastersPlayers = scoresData?.data?.player || [];
-
-    // Check if scores are actually populated (not just player list)
     const hasScores = mastersPlayers.some(p => p.total && p.total !== "");
-
-    // Update timestamp
     const wallClock = scoresData?.data?.wallClockTime || "";
     const currentRound = scoresData?.data?.currentRound || "";
     if (hasScores) {
       document.getElementById("lb-last-updated").textContent =
-        `Round ${currentRound} ${wallClock ? "· Updated " + wallClock : ""}`;
+        `Round ${currentRound} ${wallClock ? "\u00b7 Updated " + wallClock : ""}`;
     } else {
       document.getElementById("lb-last-updated").textContent =
-        "Tournament has not started yet · Scores will appear once play begins";
+        "Tournament has not started yet \u00b7 Scores will appear once play begins";
     }
 
-    // Calculate each user's score
     const standings = userNames.map(name => {
       const sels = picks[name];
       const golfers = TIERS.map((tier, i) => {
@@ -802,19 +1007,17 @@ async function loadLeaderboard() {
           player,
           totalStrokes,
           topar: formatTopar(player),
-          pos: player?.pos || "—",
+          pos: player?.pos || "\u2014",
           status: (player?.status || "").toLowerCase()
         };
       });
 
-      // Sort by total strokes (lowest first), nulls last
       const sorted = [...golfers].sort((a, b) => {
         if (a.totalStrokes === null) return 1;
         if (b.totalStrokes === null) return -1;
         return a.totalStrokes - b.totalStrokes;
       });
 
-      // Best 4 count
       const counting = sorted.slice(0, 4);
       const notCounting = sorted.slice(4);
       const teamTotal = counting.reduce((sum, g) => sum + (g.totalStrokes || 0), 0);
@@ -829,25 +1032,17 @@ async function loadLeaderboard() {
       };
     });
 
-    // Sort standings
     standings.sort((a, b) => {
       if (a.teamTotal === null) return 1;
       if (b.teamTotal === null) return -1;
       return a.teamTotal - b.teamTotal;
     });
 
-    // Assign positions
     standings.forEach((s, i) => {
       if (i === 0) { s.pos = 1; }
       else if (s.teamTotal === standings[i - 1].teamTotal) { s.pos = standings[i - 1].pos; }
       else { s.pos = i + 1; }
     });
-
-    // Render table
-    function posBadge(pos) {
-      if (pos === 1) return `<span class="lb-pos-badge jacket" title="Leader"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28C8 28 10 26 13 26C14 25 15 24 17 24L19 22H22L24 23L26 22L28 22L30 21L33 21L35 20L38 20L40 21L42 21L44 22L46 22L48 23L50 24L52 25L54 26L55 28L56 30L55 32L56 34L54 36L52 37L50 38L49 40L48 41L47 42L46 42L44 44L42 44L40 43L38 44L37 46L36 48L35 48L34 46L32 46L30 45L28 44L26 44L24 43L22 42L20 42L18 41L16 40L14 38L12 36L10 34L9 32L8 30Z" fill="#f9d71c" stroke="#006747" stroke-width="1.2"/><line x1="40" y1="12" x2="40" y2="38" stroke="#006747" stroke-width="1.5"/><path d="M40 12L40 19L48 15.5Z" fill="#c41e3a"/><circle cx="40" cy="11.5" r="1" fill="#006747"/></svg></span>`;
-      return `<span class="lb-pos-badge standard">${pos}</span>`;
-    }
 
     let html = `<div class="lb-table-wrap"><table class="lb-table">
       <thead><tr>
@@ -859,14 +1054,13 @@ async function loadLeaderboard() {
 
     standings.forEach((s, idx) => {
       const rowClass = s.pos === 1 ? "first-place" : "";
-      const totalDisplay = s.teamTotal !== null ? s.teamTotal : "—";
+      const totalDisplay = s.teamTotal !== null ? s.teamTotal : "\u2014";
       html += `<tr class="${rowClass}">
         <td class="lb-pos num">${posBadge(s.pos)}</td>
         <td class="lb-name">${s.name}</td>
         <td class="lb-score num">${totalDisplay}</td>
         <td class="num"><button class="lb-detail-toggle" data-idx="${idx}">Details</button></td>
       </tr>`;
-      // Detail row
       html += `<tr class="lb-detail-row" id="lb-detail-${idx}"><td colspan="4"><div class="lb-detail-inner">`;
       s.sorted.forEach(g => {
         const isCounting = s.counting.has(g.name);
@@ -875,8 +1069,8 @@ async function loadLeaderboard() {
           ? `<span class="lb-counting-label">Counts</span>`
           : `<span class="lb-not-counting-label">Drop</span>`;
         const scoreClass = (g.status === "c" || g.status === "cut" || g.status === "mc") ? " mc" : "";
-        const scoreDisplay = g.totalStrokes !== null ? g.totalStrokes : "—";
-        const toparDisplay = g.topar !== "—" ? ` (${g.topar})` : "";
+        const scoreDisplay = g.totalStrokes !== null ? g.totalStrokes : "\u2014";
+        const toparDisplay = g.topar !== "\u2014" ? ` (${g.topar})` : "";
         html += `<div class="lb-golfer-row ${rowClass}">
           <span class="lb-golfer-tier">T${g.tier}</span>
           <span class="lb-golfer-name">${g.name}${label}</span>
@@ -890,7 +1084,6 @@ async function loadLeaderboard() {
     html += `</tbody></table></div>`;
     content.innerHTML = html;
 
-    // Detail toggle handlers
     content.querySelectorAll(".lb-detail-toggle").forEach(btn => {
       btn.addEventListener("click", () => {
         const row = document.getElementById(`lb-detail-${btn.dataset.idx}`);
@@ -904,19 +1097,19 @@ async function loadLeaderboard() {
   }
 }
 
-// Auto-refresh leaderboard every 60 seconds when on that tab
+// Auto-refresh Masters leaderboard every 60 seconds when on that tab
 function startLbAutoRefresh() {
   if (lbInterval) clearInterval(lbInterval);
   lbInterval = setInterval(() => {
-    if (document.getElementById("leaderboard-panel").classList.contains("active")) {
+    if (document.getElementById("masters-panel").classList.contains("active")) {
       loadLeaderboard();
     }
   }, 60000);
 }
 startLbAutoRefresh();
 
-// Default to leaderboard tab
-switchTab("leaderboard");
+// Default to Club Leaderboard tab
+switchTab("club");
 
 // Toast
 function showToast(msg) {
