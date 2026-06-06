@@ -739,6 +739,347 @@
       .event-card-body { padding: 1rem; }
       .event-countdown-days { font-size: 2.2rem; }
     }
+
+    /* ===== WORLD CUP PAGE ===== */
+    .wc-subnav {
+      display: flex;
+      gap: 0;
+      background: #f5e8e2;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .wc-subnav-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex: 1;
+    }
+    .wc-subnav-btn:hover { color: var(--text-primary); background: rgba(0,0,0,0.03); }
+    .wc-subnav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: white;
+    }
+    .wc-subpanel { display: none; padding: 1.5rem; background: white; }
+    .wc-subpanel.active { display: block; }
+
+    /* Picks form */
+    .wc-picks-form {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .wc-form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .wc-form-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.4rem;
+    }
+    .wc-name-row {
+      margin-bottom: 1.2rem;
+    }
+    .wc-name-row label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 0.35rem;
+    }
+    .wc-name-input {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .wc-name-input:focus { border-color: var(--primary); }
+
+    .wc-tier-section { margin-bottom: 1.8rem; }
+    .wc-tier-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.75rem;
+    }
+    .tier-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .tier-badge-name {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+    .tier-badge-label {
+      font-size: 0.58rem;
+      font-weight: 500;
+      margin-top: 0.1rem;
+      opacity: 0.85;
+    }
+    .tier-badge.t1 { background: var(--primary); color: white; }
+    .tier-badge.t2 { background: var(--accent); color: white; }
+    .tier-badge.t3 { background: #5a7c7e; color: white; }
+    .tier-badge.t4 { background: #8a6a5e; color: white; }
+    .tier-badge.t5 { background: #b0a090; color: white; }
+
+    .wc-tier-instruction {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .wc-team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .wc-team-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 0.65rem;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-width: 76px;
+      text-align: center;
+      gap: 0.1rem;
+      user-select: none;
+    }
+    .wc-team-tile:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(48,76,83,0.12); }
+    .wc-team-tile .tile-flag { font-size: 1.5rem; line-height: 1.2; }
+    .wc-team-tile .tile-name { font-size: 0.68rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.01em; }
+    .wc-team-tile .tile-odds { font-size: 0.62rem; color: var(--text-secondary); margin-top: 0.05rem; }
+
+    /* Selected states per tier colour */
+    .wc-team-tile.selected.t1 { background: var(--primary); border-color: var(--primary); }
+    .wc-team-tile.selected.t2 { background: var(--accent); border-color: var(--accent); }
+    .wc-team-tile.selected.t3 { background: #5a7c7e; border-color: #5a7c7e; }
+    .wc-team-tile.selected.t4 { background: #8a6a5e; border-color: #8a6a5e; }
+    .wc-team-tile.selected.t5 { background: #b0a090; border-color: #b0a090; }
+    .wc-team-tile.selected .tile-name,
+    .wc-team-tile.selected .tile-odds { color: white; }
+    .wc-team-tile.selected { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+
+    .wc-submit-btn {
+      width: 100%;
+      margin-top: 1.2rem;
+      padding: 0.85rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .wc-submit-btn:hover { background: var(--accent); transform: translateY(-1px); }
+    .wc-submit-btn:disabled { background: #aaa; cursor: not-allowed; transform: none; }
+
+    .wc-form-msg {
+      margin-top: 0.9rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+    .wc-form-msg.success { background: #e8f6e9; color: #1a6b2a; display: block; }
+    .wc-form-msg.error { background: #fdecea; color: #c62828; display: block; }
+
+    /* Scoring breakdown card on picks page */
+    .wc-scoring-card {
+      max-width: 580px;
+      margin: 1.8rem auto 0;
+      background: var(--masters-light-green);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+    }
+    .wc-scoring-card-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+    .wc-scoring-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 1.5rem;
+    }
+    .wc-scoring-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      padding: 0.2rem 0;
+      border-bottom: 1px solid #DDAD9C;
+    }
+    .wc-scoring-row:last-child { border-bottom: none; }
+    .wc-scoring-pts {
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      margin-left: 0.5rem;
+    }
+
+    /* Leaderboard sub-panel */
+    .wc-lb-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 2px solid #304C53;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+    .wc-lb-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    .wc-lb-table thead th {
+      background: white;
+      color: #5A2F25;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.6rem 0.7rem;
+      text-align: left;
+      border-bottom: 2px solid #304C53;
+    }
+    .wc-lb-table thead th.num { text-align: center; }
+    .wc-lb-table tbody tr {
+      border-bottom: 1px solid #c8ecf0;
+      transition: background 0.1s;
+    }
+    .wc-lb-table tbody tr:last-child { border-bottom: none; }
+    .wc-lb-table tbody tr:hover { background: #e8f6f8; }
+    .wc-lb-table tbody tr.wc-first { background: #fdf0ea; }
+    .wc-lb-table td {
+      padding: 0.7rem 0.7rem;
+      font-size: 0.9rem;
+      color: #5A2F25;
+    }
+    .wc-lb-table td.num { text-align: center; }
+
+    .wc-team-chip {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      margin: 0.1rem 0.15rem;
+      white-space: nowrap;
+    }
+    .wc-team-chip.t1 { background: var(--primary); }
+    .wc-team-chip.t2 { background: var(--accent); }
+    .wc-team-chip.t3 { background: #5a7c7e; }
+    .wc-team-chip.t4 { background: #8a6a5e; }
+    .wc-team-chip.t5 { background: #b0a090; }
+
+    .wc-no-data {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+    .wc-no-data .wc-no-data-icon { font-size: 2.5rem; margin-bottom: 0.7rem; }
+    .wc-no-data p { font-size: 0.95rem; }
+
+    /* Group standings grid */
+    .group-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .group-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .group-card-header {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .group-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .group-card table thead th {
+      background: #f5e8e2;
+      color: var(--text-secondary);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.35rem 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .group-card table thead th.left { text-align: left; }
+    .group-card table tbody tr { border-bottom: 1px solid #f0f0f0; }
+    .group-card table tbody tr:last-child { border-bottom: none; }
+    .group-card table tbody td {
+      padding: 0.4rem 0.5rem;
+      color: var(--text-primary);
+      text-align: center;
+    }
+    .group-card table tbody td.left { text-align: left; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .group-grid { grid-template-columns: repeat(2, 1fr); }
+      .wc-subnav-btn { font-size: 0.72rem; padding: 0.65rem 0.6rem; }
+    }
+    @media (max-width: 600px) {
+      .group-grid { grid-template-columns: 1fr; }
+      .wc-subpanel { padding: 1rem 0.75rem; }
+      .wc-team-tile { min-width: 68px; padding: 0.45rem 0.5rem; }
+      .wc-team-tile .tile-flag { font-size: 1.3rem; }
+      .wc-team-tile .tile-name { font-size: 0.62rem; }
+      .wc-scoring-grid { grid-template-columns: 1fr; }
+      .wc-lb-table { min-width: 520px; }
+    }
   </style>
 </head>
 <body>
@@ -754,6 +1095,7 @@
   <button class="tab-btn active" data-tab="club">Club Leaderboard</button>
   <button class="tab-btn" data-tab="events">Events</button>
   <button class="tab-btn" data-tab="masters">Masters 2026</button>
+  <button class="tab-btn" data-tab="wc">World Cup</button>
 </nav>
 
 <div class="container">
@@ -764,37 +1106,49 @@
       <div class="rules-card">
         <div class="rule-item">
           <span class="rule-number">1</span>
-          <span class="rule-text"><strong>Points are based on how many players play that round.</strong> First place receives points equal to the number of players. Second place receives (players - 2). Third place receives (players - 4). After third, each subsequent position drops by 1 point.</span>
+          <span class="rule-text"><strong>Placement points</strong> are awarded based on how your team finishes. 1st place earns 100 pts, last place earns 70 pts — scaled linearly in between based on field size.<br><small style="color:var(--text-secondary);font-size:0.82em">Formula: 100 &minus; ((position &minus; 1) &divide; (teams &minus; 1)) &times; 30</small></span>
         </div>
         <div class="rule-item">
           <span class="rule-number">2</span>
-          <span class="rule-text"><strong>CTP (Closest to Pin)</strong> earns 1 bonus point per round.</span>
+          <span class="rule-text"><strong>Attendance:</strong> 20 pts just for showing up and playing the round.</span>
         </div>
         <div class="rule-item">
           <span class="rule-number">3</span>
-          <span class="rule-text"><strong>LD (Longest Drive)</strong> earns 1 bonus point per round.</span>
+          <span class="rule-text"><strong>Bonus points:</strong> 10 pts each for CTP (Closest to Pin) and LD (Longest Drive). Up to 4 bonus categories per round.</span>
         </div>
         <div class="rule-item">
           <span class="rule-number">4</span>
-          <span class="rule-text"><strong>Attendance bonus:</strong> 0.5 points for every round played.</span>
-        </div>
-        <div class="rule-item">
-          <span class="rule-number">5</span>
-          <span class="rule-text"><strong>Final Score</strong> = Average Points per Round + Total Attendance Bonus. Highest score wins.</span>
+          <span class="rule-text"><strong>Season ranking</strong> = Average Points per round played. Lowest attendance isn&rsquo;t penalised &mdash; attendance is already baked into each round&rsquo;s score.</span>
         </div>
         <div class="scoring-example">
-          <div class="example-label">Scoring Example &mdash; 10 Players</div>
+          <div class="example-label">Points per round &mdash; max &amp; min</div>
           <div class="scoring-example-table-wrap">
             <table>
               <thead>
-                <tr><th>Pos</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>5th</th><th>6th</th><th>7th</th><th>8th</th><th>9th+</th></tr>
+                <tr><th class="left">Component</th><th>Points</th></tr>
               </thead>
               <tbody>
-                <tr><td>Pts</td><td>10</td><td>8</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+                <tr><td class="left">1st place (placement)</td><td>100</td></tr>
+                <tr><td class="left">Last place (placement)</td><td>70</td></tr>
+                <tr><td class="left">Attendance</td><td>20</td></tr>
+                <tr><td class="left">Bonus (CTP / LD / etc.)</td><td>10 each</td></tr>
+                <tr><td class="left"><strong>Maximum per round</strong></td><td><strong>160</strong></td></tr>
+                <tr><td class="left"><strong>Minimum (if attended)</strong></td><td><strong>90</strong></td></tr>
               </tbody>
             </table>
           </div>
-          <p style="margin-top:0.8rem">If only 6 players: 1st = 6, 2nd = 4, 3rd = 2, 4th = 1, 5th = 0, 6th = 0.</p>
+          <div class="scoring-example-table-wrap" style="margin-top:0.8rem">
+            <table>
+              <thead>
+                <tr><th class="left">Field size</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>5th</th><th>6th</th><th>7th</th><th>8th</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="left">4 teams</td><td>100</td><td>90</td><td>80</td><td>70</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td class="left">6 teams</td><td>100</td><td>94</td><td>88</td><td>82</td><td>76</td><td>70</td><td>—</td><td>—</td></tr>
+                <tr><td class="left">8 teams</td><td>100</td><td>95.7</td><td>91.4</td><td>87.1</td><td>82.9</td><td>78.6</td><td>74.3</td><td>70</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="next-page-wrap">
@@ -808,7 +1162,7 @@
     <div class="lb-scoreboard">
       <div class="lb-header">
         <h2>Club Leaderboard</h2>
-        <div class="lb-updated">Sorted by Final Score (Avg Pts + Attendance)</div>
+        <div class="lb-updated">Ranked by Average Points per Round</div>
       </div>
       <div id="club-lb-content">
         <div class="lb-loading">Loading club leaderboard...</div>
@@ -826,29 +1180,29 @@
       <div class="event-card">
         <div class="event-card-header">
           <span class="event-badge">Next Up</span>
-          <h3>Club Round — Round 5</h3>
+          <h3>Club Round — Round 6</h3>
         </div>
         <div class="event-card-body">
           <div class="event-detail-row">
             <div class="event-detail-icon">📅</div>
             <div>
               <div class="event-detail-label">Date</div>
-              <div class="event-detail-value">Sunday, 3 May 2026</div>
+              <div class="event-detail-value">Saturday, 7 June 2026</div>
             </div>
           </div>
           <div class="event-detail-row">
             <div class="event-detail-icon">📍</div>
             <div>
               <div class="event-detail-label">Location</div>
-              <div class="event-detail-value">Boomerang Public Golf Course</div>
-              <div class="event-detail-address">167 Old Princes Highway, Maddens Plains NSW 2508</div>
+              <div class="event-detail-value">The Gibraltar Golf Course</div>
+              <div class="event-detail-address">7 Boronia St, Bowral NSW 2576</div>
             </div>
           </div>
           <div class="event-detail-row">
             <div class="event-detail-icon">⏰</div>
             <div>
               <div class="event-detail-label">Tee Time</div>
-              <div class="event-detail-value">7:30 AM</div>
+              <div class="event-detail-value">8:20 AM</div>
             </div>
           </div>
           <div class="event-detail-row">
@@ -871,27 +1225,124 @@
 
       <div class="event-card past">
         <div class="event-card-header">
-          <span class="event-badge" style="background:rgba(255,255,255,0.3)">Round 4</span>
-          <h3>Club Round — Round 4</h3>
+          <span class="event-badge" style="background:rgba(255,255,255,0.3)">Round 5</span>
+          <h3>Boomerang Public Golf Course</h3>
         </div>
         <div class="event-card-body">
           <div class="event-detail-row">
             <div class="event-detail-icon">📅</div>
             <div>
               <div class="event-detail-label">Date</div>
-              <div class="event-detail-value">Completed</div>
+              <div class="event-detail-value">Sunday, 3 May 2026</div>
             </div>
           </div>
           <div class="event-detail-row">
             <div class="event-detail-icon">🏆</div>
             <div>
               <div class="event-detail-label">Season Leader</div>
-              <div class="event-detail-value">Bailey S — 16.50 pts</div>
+              <div class="event-detail-value">Bailey — 121.88 avg pts</div>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="event-card past">
+        <div class="event-card-header">
+          <span class="event-badge" style="background:rgba(255,255,255,0.3)">Round 4</span>
+          <h3>April Round</h3>
+        </div>
+        <div class="event-card-body">
+          <div class="event-detail-row">
+            <div class="event-detail-icon">📅</div>
+            <div>
+              <div class="event-detail-label">Date</div>
+              <div class="event-detail-value">April 2026 — Completed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORLD CUP 2026 TAB -->
+  <!--
+    SQL to run in Supabase SQL editor before going live:
+
+    CREATE TABLE wc_picks (
+      id serial PRIMARY KEY,
+      name text NOT NULL UNIQUE,
+      tier1 text NOT NULL,
+      tier2 text NOT NULL,
+      tier3 text NOT NULL,
+      tier4 text NOT NULL,
+      tier5 text NOT NULL,
+      created_at timestamptz DEFAULT now()
+    );
+    ALTER TABLE wc_picks ENABLE ROW LEVEL SECURITY;
+    CREATE POLICY "Public read" ON wc_picks FOR SELECT USING (true);
+    CREATE POLICY "Public insert" ON wc_picks FOR INSERT WITH CHECK (true);
+  -->
+  <div class="panel" id="wc-panel">
+    <div class="lb-scoreboard">
+      <div class="lb-header">
+        <h2>World Cup 2026</h2>
+        <div class="lb-updated">Starts 11 June 2026 &middot; Pick 1 team per tier &middot; 5 picks total</div>
+      </div>
+      <div class="wc-subnav">
+        <button class="wc-subnav-btn active" data-wc="picks">Make Picks</button>
+        <button class="wc-subnav-btn" data-wc="leaderboard">Pool Leaderboard</button>
+        <button class="wc-subnav-btn" data-wc="standings">Live Standings</button>
+      </div>
+
+      <!-- PICKS sub-panel -->
+      <div class="wc-subpanel active" id="wc-picks-sub">
+
+        <!-- SCORING FIRST -->
+        <div class="wc-scoring-card">
+          <div class="wc-scoring-card-title">Scoring System</div>
+          <div class="wc-scoring-grid">
+            <div class="wc-scoring-row"><span>Group win</span><span class="wc-scoring-pts">2 pts</span></div>
+            <div class="wc-scoring-row"><span>Group draw</span><span class="wc-scoring-pts">1 pt</span></div>
+            <div class="wc-scoring-row"><span>Advance from groups</span><span class="wc-scoring-pts">+3 pts</span></div>
+            <div class="wc-scoring-row"><span>Win Round of 32</span><span class="wc-scoring-pts">4 pts</span></div>
+            <div class="wc-scoring-row"><span>Win Round of 16</span><span class="wc-scoring-pts">5 pts</span></div>
+            <div class="wc-scoring-row"><span>Win Quarter-Final</span><span class="wc-scoring-pts">7 pts</span></div>
+            <div class="wc-scoring-row"><span>Win Semi-Final</span><span class="wc-scoring-pts">10 pts</span></div>
+            <div class="wc-scoring-row"><span>Runner-up (lose final)</span><span class="wc-scoring-pts">12 pts</span></div>
+            <div class="wc-scoring-row"><span>Win the Final</span><span class="wc-scoring-pts">15 pts</span></div>
+          </div>
+        </div>
+
+        <!-- PICKS FORM -->
+        <div class="wc-picks-form" style="margin-top:1.5rem">
+          <div class="wc-form-title">Make Your Picks</div>
+          <div class="wc-form-subtitle">Tap a country tile to select it — one from each tier. Picks lock when the tournament starts.</div>
+          <div class="wc-name-row">
+            <label for="wc-name-input">Your name</label>
+            <input type="text" id="wc-name-input" class="wc-name-input" placeholder="e.g. Bailey S" autocomplete="off">
+          </div>
+          <div id="wc-tier-rows"><!-- rendered by JS --></div>
+          <button class="wc-submit-btn" id="wc-submit-btn" onclick="submitWCPick()">Submit My Picks</button>
+          <div class="wc-form-msg" id="wc-form-msg"></div>
+        </div>
+      </div>
+
+      <!-- LEADERBOARD sub-panel -->
+      <div class="wc-subpanel" id="wc-leaderboard-sub">
+        <div id="wc-lb-content">
+          <div class="wc-no-data"><div class="wc-no-data-icon">&#127942;</div><p>Loading leaderboard...</p></div>
+        </div>
+      </div>
+
+      <!-- STANDINGS sub-panel -->
+      <div class="wc-subpanel" id="wc-standings-sub">
+        <div id="wc-standings-content">
+          <div class="wc-no-data"><div class="wc-no-data-icon">&#127942;</div><p>Loading standings...</p></div>
+        </div>
+      </div>
+
+      <div class="lb-board-base"></div>
     </div>
   </div>
 
@@ -995,10 +1446,11 @@ function switchTab(tab) {
   if (tab === "masters") loadLeaderboard();
   if (tab === "club") renderClubLeaderboard();
   if (tab === "events") renderCountdown();
+  if (tab === "wc") initWC();
 }
 
 function renderCountdown() {
-  const eventDate = new Date("2026-05-03T00:00:00");
+  const eventDate = new Date("2026-06-07T00:00:00");
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const diff = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
@@ -1027,14 +1479,14 @@ document.querySelectorAll(".next-page-btn").forEach(btn => {
 
 // ========== CLUB LEADERBOARD RENDER ==========
 function buildClubTable(rows) {
-  // Rows already sorted by final_score desc from API
+  // Rows sorted by avg_pts desc from API
   const active = rows.filter(p => p.rounds > 0);
   const inactive = rows.filter(p => p.rounds === 0);
 
-  // Assign positions (handle ties)
+  // Assign positions (handle ties on avg_pts)
   active.forEach((p, i) => {
     if (i === 0) { p.pos = 1; }
-    else if (p.final_score === active[i - 1].final_score) { p.pos = active[i - 1].pos; }
+    else if (Number(p.avg_pts).toFixed(3) === Number(active[i - 1].avg_pts).toFixed(3)) { p.pos = active[i - 1].pos; }
     else { p.pos = i + 1; }
   });
 
@@ -1043,10 +1495,8 @@ function buildClubTable(rows) {
       <th class="num" style="width:50px">Pos</th>
       <th>Player</th>
       <th class="num" style="width:70px">Rounds</th>
-      <th class="num" style="width:80px">Total Pts</th>
-      <th class="num" style="width:80px">Avg Pts</th>
-      <th class="num" style="width:80px">Attend.</th>
-      <th class="num" style="width:90px">Final</th>
+      <th class="num" style="width:90px">Total Pts</th>
+      <th class="num" style="width:90px">Avg Pts</th>
     </tr></thead><tbody>`;
 
   active.forEach(p => {
@@ -1055,10 +1505,8 @@ function buildClubTable(rows) {
       <td class="lb-pos num">${posBadge(p.pos)}</td>
       <td class="lb-name">${p.name}</td>
       <td class="num">${p.rounds}</td>
-      <td class="num">${p.total_pts}</td>
-      <td class="num">${Number(p.avg_pts).toFixed(2)}</td>
-      <td class="num">${Number(p.attendance).toFixed(1)}</td>
-      <td class="lb-score num">${Number(p.final_score).toFixed(2)}</td>
+      <td class="num">${Number(p.total_pts).toFixed(2)}</td>
+      <td class="lb-score num">${Number(p.avg_pts).toFixed(2)}</td>
     </tr>`;
   });
 
@@ -1067,8 +1515,6 @@ function buildClubTable(rows) {
       <td class="lb-pos num">&mdash;</td>
       <td class="lb-name">${p.name}</td>
       <td class="num">0</td>
-      <td class="num">&mdash;</td>
-      <td class="num">&mdash;</td>
       <td class="num">&mdash;</td>
       <td class="lb-score num">&mdash;</td>
     </tr>`;
@@ -1324,6 +1770,464 @@ startLbAutoRefresh();
 
 // Default to Club Leaderboard tab
 switchTab("club");
+
+// ========== WORLD CUP 2026 ==========
+
+const WC_TIERS = [
+  {
+    id: 1, name: "Tier 1", label: "Favourites", cls: "t1",
+    teams: [
+      { name: "Spain",   flag: "🇪🇸", odds: 5.50 },
+      { name: "France",  flag: "🇫🇷", odds: 6.00 },
+      { name: "England", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", odds: 6.50 }
+    ]
+  },
+  {
+    id: 2, name: "Tier 2", label: "Contenders", cls: "t2",
+    teams: [
+      { name: "Brazil",    flag: "🇧🇷", odds: 9.00 },
+      { name: "Argentina", flag: "🇦🇷", odds: 9.50 },
+      { name: "Portugal",  flag: "🇵🇹", odds: 10.00 },
+      { name: "Germany",   flag: "🇩🇪", odds: 13.00 }
+    ]
+  },
+  {
+    id: 3, name: "Tier 3", label: "Dark Horses", cls: "t3",
+    teams: [
+      { name: "Netherlands", flag: "🇳🇱", odds: 19.00 },
+      { name: "Belgium",     flag: "🇧🇪", odds: 21.00 },
+      { name: "Norway",      flag: "🇳🇴", odds: 23.00 },
+      { name: "Colombia",    flag: "🇨🇴", odds: 46.00 },
+      { name: "Morocco",     flag: "🇲🇦", odds: 46.00 }
+    ]
+  },
+  {
+    id: 4, name: "Tier 4", label: "Outsiders", cls: "t4",
+    teams: [
+      { name: "Japan",       flag: "🇯🇵", odds: 61.00 },
+      { name: "USA",         flag: "🇺🇸", odds: 61.00 },
+      { name: "Mexico",      flag: "🇲🇽", odds: 76.00 },
+      { name: "Switzerland", flag: "🇨🇭", odds: 76.00 },
+      { name: "Uruguay",     flag: "🇺🇾", odds: 76.00 },
+      { name: "Croatia",     flag: "🇭🇷", odds: 91.00 },
+      { name: "Ecuador",     flag: "🇪🇨", odds: 91.00 },
+      { name: "Senegal",     flag: "🇸🇳", odds: 91.00 },
+      { name: "Sweden",      flag: "🇸🇪", odds: 91.00 },
+      { name: "Turkiye",     flag: "🇹🇷", odds: 91.00 }
+    ]
+  },
+  {
+    id: 5, name: "Tier 5", label: "Long Shots", cls: "t5",
+    teams: [
+      { name: "Austria",              flag: "🇦🇹", odds: 126.00 },
+      { name: "Canada",               flag: "🇨🇦", odds: 226.00 },
+      { name: "Ivory Coast",          flag: "🇨🇮", odds: 251.00 },
+      { name: "Czechia",              flag: "🇨🇿", odds: 276.00 },
+      { name: "Egypt",                flag: "🇪🇬", odds: 276.00 },
+      { name: "Paraguay",             flag: "🇵🇾", odds: 276.00 },
+      { name: "Algeria",              flag: "🇩🇿", odds: 376.00 },
+      { name: "Ghana",                flag: "🇬🇭", odds: 376.00 },
+      { name: "Bosnia & Herzegovina", flag: "🇧🇦", odds: 401.00 },
+      { name: "Iran",                 flag: "🇮🇷", odds: 476.00 },
+      { name: "South Korea",          flag: "🇰🇷", odds: 476.00 },
+      { name: "Tunisia",              flag: "🇹🇳", odds: 476.00 },
+      { name: "Australia",            flag: "🇦🇺", odds: 501.00 },
+      { name: "Scotland",             flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", odds: 501.00 },
+      { name: "Cape Verde",           flag: "🇨🇻", odds: 501.00 },
+      { name: "Curacao",              flag: "🇨🇼", odds: 501.00 },
+      { name: "DR Congo",             flag: "🇨🇩", odds: 501.00 },
+      { name: "Haiti",                flag: "🇭🇹", odds: 501.00 },
+      { name: "Iraq",                 flag: "🇮🇶", odds: 501.00 },
+      { name: "Jordan",               flag: "🇯🇴", odds: 501.00 },
+      { name: "New Zealand",          flag: "🇳🇿", odds: 501.00 },
+      { name: "Panama",               flag: "🇵🇦", odds: 501.00 },
+      { name: "Qatar",                flag: "🇶🇦", odds: 501.00 },
+      { name: "Saudi Arabia",         flag: "🇸🇦", odds: 501.00 },
+      { name: "South Africa",         flag: "🇿🇦", odds: 501.00 },
+      { name: "Uzbekistan",           flag: "🇺🇿", odds: 501.00 }
+    ]
+  }
+];
+
+// Selected tiles tracker (keyed by tier id)
+const wcSelected = { 1: null, 2: null, 3: null, 4: null, 5: null };
+
+const WC_SCORING = {
+  groupWin: 2,
+  groupDraw: 1,
+  advanceGroup: 3,
+  winR32: 4,
+  winR16: 5,
+  winQF: 7,
+  winSF: 10,
+  runnerUp: 12,
+  winFinal: 15
+};
+
+let wcInitialised = false;
+
+function initWC() {
+  if (!wcInitialised) {
+    renderPicksForm();
+    // wire sub-nav
+    document.querySelectorAll(".wc-subnav-btn").forEach(btn => {
+      btn.addEventListener("click", () => wcSwitchSub(btn.dataset.wc));
+    });
+    wcInitialised = true;
+  }
+}
+
+function wcSwitchSub(subTab) {
+  document.querySelectorAll(".wc-subnav-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.wc === subTab);
+  });
+  document.querySelectorAll(".wc-subpanel").forEach(p => {
+    p.classList.toggle("active", p.id === `wc-${subTab}-sub`);
+  });
+  if (subTab === "leaderboard") loadWCLeaderboard();
+  if (subTab === "standings") loadWCStandings();
+}
+
+function renderPicksForm() {
+  const container = document.getElementById("wc-tier-rows");
+  if (!container) return;
+  let html = "";
+  WC_TIERS.forEach(tier => {
+    const tiles = tier.teams.map(t => {
+      const oddsStr = t.odds >= 100 ? Math.round(t.odds) : t.odds.toFixed(2);
+      return `<div class="wc-team-tile ${tier.cls}" data-tier="${tier.id}" data-team="${t.name}" onclick="wcSelectTile(this, ${tier.id}, '${t.name}')">
+        <span class="tile-flag">${t.flag}</span>
+        <span class="tile-name">${t.name}</span>
+        <span class="tile-odds">${oddsStr}×</span>
+      </div>`;
+    }).join("");
+    html += `<div class="wc-tier-section">
+      <div class="wc-tier-header">
+        <div class="tier-badge ${tier.cls}">
+          <span class="tier-badge-name">${tier.name}</span>
+          <span class="tier-badge-label">${tier.label}</span>
+        </div>
+        <span class="wc-tier-instruction">Pick 1</span>
+      </div>
+      <div class="wc-team-grid">${tiles}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function wcSelectTile(el, tierId, teamName) {
+  // Deselect all tiles in this tier
+  document.querySelectorAll(`.wc-team-tile[data-tier="${tierId}"]`).forEach(t => t.classList.remove("selected"));
+  // Select clicked tile
+  el.classList.add("selected");
+  wcSelected[tierId] = teamName;
+}
+
+async function submitWCPick() {
+  const btn = document.getElementById("wc-submit-btn");
+  const msgEl = document.getElementById("wc-form-msg");
+  const name = (document.getElementById("wc-name-input")?.value || "").trim();
+  msgEl.className = "wc-form-msg";
+  msgEl.textContent = "";
+
+  if (!name) {
+    msgEl.className = "wc-form-msg error";
+    msgEl.textContent = "Please enter your name.";
+    return;
+  }
+
+  const picks = {};
+  let allPicked = true;
+  WC_TIERS.forEach(tier => {
+    const val = wcSelected[tier.id] || "";
+    picks[`tier${tier.id}`] = val;
+    if (!val) allPicked = false;
+  });
+
+  if (!allPicked) {
+    msgEl.className = "wc-form-msg error";
+    msgEl.textContent = "Please tap a country from every tier before submitting.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  try {
+    const res = await fetch("/api/wc/picks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, ...picks })
+    });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      msgEl.className = "wc-form-msg success";
+      msgEl.textContent = `Picks saved for ${name}! Good luck!`;
+      btn.textContent = "Picks Submitted!";
+      showToast(`Picks saved for ${name}!`);
+    } else if (res.status === 409) {
+      msgEl.className = "wc-form-msg error";
+      msgEl.textContent = "Picks already submitted for that name. Contact an admin to change.";
+      btn.disabled = false;
+      btn.textContent = "Submit My Picks";
+    } else {
+      throw new Error(data.error || "Unknown error");
+    }
+  } catch (err) {
+    msgEl.className = "wc-form-msg error";
+    msgEl.textContent = `Error: ${err.message}`;
+    btn.disabled = false;
+    btn.textContent = "Submit My Picks";
+  }
+}
+
+async function loadWCLeaderboard() {
+  const content = document.getElementById("wc-lb-content");
+  content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#8987;</div><p>Loading picks...</p></div>`;
+
+  try {
+    const [picksRes, scoresRes] = await Promise.all([
+      fetch("/api/wc/picks"),
+      fetch("/api/wc/scores")
+    ]);
+    const picks = await picksRes.json();
+    let matchData = null;
+    try { matchData = await scoresRes.json(); } catch (_) {}
+
+    if (!picks || picks.length === 0) {
+      content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#127942;</div><p>No picks submitted yet. Be the first!</p></div>`;
+      return;
+    }
+
+    // Build points map per team from ESPN data
+    const teamPoints = buildTeamPointsMap(matchData);
+
+    const rows = picks.map(pick => {
+      const teams = [
+        { tier: 1, cls: "t1", name: pick.tier1 },
+        { tier: 2, cls: "t2", name: pick.tier2 },
+        { tier: 3, cls: "t3", name: pick.tier3 },
+        { tier: 4, cls: "t4", name: pick.tier4 },
+        { tier: 5, cls: "t5", name: pick.tier5 }
+      ];
+      const totalPts = teams.reduce((sum, t) => sum + (teamPoints[t.name] || 0), 0);
+      return { name: pick.name, teams, totalPts };
+    });
+
+    rows.sort((a, b) => b.totalPts - a.totalPts);
+    rows.forEach((r, i) => {
+      if (i === 0) r.pos = 1;
+      else if (r.totalPts === rows[i - 1].totalPts) r.pos = rows[i - 1].pos;
+      else r.pos = i + 1;
+    });
+
+    const tournamentStarted = Object.keys(teamPoints).length > 0;
+
+    let html = `<div class="wc-lb-table-wrap"><table class="wc-lb-table">
+      <thead><tr>
+        <th class="num" style="width:44px">Pos</th>
+        <th>Name</th>
+        <th>Picks</th>
+        ${tournamentStarted ? `<th class="num" style="width:70px">Pts</th>` : ""}
+      </tr></thead><tbody>`;
+
+    rows.forEach(r => {
+      const chips = r.teams.map(t =>
+        `<span class="wc-team-chip ${t.cls}">${wcTeamFlag(t.name)} ${t.name}${tournamentStarted && teamPoints[t.name] ? ` <strong>${teamPoints[t.name]}</strong>` : ""}</span>`
+      ).join(" ");
+      const rowCls = r.pos === 1 ? "wc-first" : "";
+      html += `<tr class="${rowCls}">
+        <td class="num" style="font-weight:700">${r.pos}</td>
+        <td style="font-weight:700">${r.name}</td>
+        <td>${chips}</td>
+        ${tournamentStarted ? `<td class="num" style="font-weight:800;font-size:1rem">${r.totalPts}</td>` : ""}
+      </tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+
+    if (!tournamentStarted) {
+      html += `<div style="text-align:center;margin-top:0.8rem;font-size:0.8rem;color:var(--text-secondary)">Scores will appear once the tournament starts on 11 June 2026</div>`;
+    }
+
+    content.innerHTML = html;
+  } catch (err) {
+    content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#10060;</div><p>Could not load leaderboard: ${err.message}</p></div>`;
+  }
+}
+
+function buildTeamPointsMap(espnData) {
+  // Returns { "Spain": 7, "France": 3, ... } based on ESPN events
+  const map = {};
+  if (!espnData || !espnData.events) return map;
+
+  try {
+    espnData.events.forEach(event => {
+      const competitors = event?.competitions?.[0]?.competitors || [];
+      const status = event?.status?.type?.completed || false;
+      const statusName = (event?.status?.type?.name || "").toLowerCase();
+
+      if (!status && statusName !== "final") return; // only completed matches
+
+      if (competitors.length < 2) return;
+      const home = competitors.find(c => c.homeAway === "home");
+      const away = competitors.find(c => c.homeAway === "away");
+      if (!home || !away) return;
+
+      const homeScore = parseInt(home.score || "0");
+      const awayScore = parseInt(away.score || "0");
+      const homeName = home.team?.displayName || home.team?.name || "";
+      const awayName = away.team?.displayName || away.team?.name || "";
+
+      // Determine round from notes / type
+      const roundType = (event?.competitions?.[0]?.notes?.[0]?.headline || event?.name || "").toLowerCase();
+      const pts = pointsForResult(homeScore, awayScore, roundType);
+
+      if (!map[homeName]) map[homeName] = 0;
+      if (!map[awayName]) map[awayName] = 0;
+      map[homeName] += pts.home;
+      map[awayName] += pts.away;
+    });
+  } catch (_) {}
+
+  return map;
+}
+
+function pointsForResult(homeScore, awayScore, roundType) {
+  const isGroup = roundType.includes("group");
+  const isR32 = roundType.includes("round of 32");
+  const isR16 = roundType.includes("round of 16");
+  const isQF = roundType.includes("quarter") || roundType.includes("quarterfinal");
+  const isSF = roundType.includes("semi");
+  const isFinal = roundType.includes("final") && !roundType.includes("semi") && !roundType.includes("quarter");
+
+  if (isGroup) {
+    if (homeScore > awayScore) return { home: WC_SCORING.groupWin, away: 0 };
+    if (awayScore > homeScore) return { home: 0, away: WC_SCORING.groupWin };
+    return { home: WC_SCORING.groupDraw, away: WC_SCORING.groupDraw };
+  }
+
+  // Knockout — winner gets points, loser gets 0
+  const winPts = isR32 ? WC_SCORING.winR32
+    : isR16 ? WC_SCORING.winR16
+    : isQF ? WC_SCORING.winQF
+    : isSF ? WC_SCORING.winSF
+    : isFinal ? WC_SCORING.winFinal : 0;
+
+  const loserPts = isFinal ? WC_SCORING.runnerUp : 0;
+
+  if (homeScore > awayScore) return { home: winPts, away: loserPts };
+  if (awayScore > homeScore) return { home: loserPts, away: winPts };
+  // Draw in KO — assume penalties; ESPN usually shows winner via score
+  return { home: 0, away: 0 };
+}
+
+// Group-stage advance bonus: track separately if needed — ESPN standings can tell us
+// For now, teams that appear in the standings with rounds played > 3 are "advanced"
+
+function wcTeamFlag(teamName) {
+  const flags = {
+    "Spain": "🇪🇸", "France": "🇫🇷", "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "Brazil": "🇧🇷", "Argentina": "🇦🇷", "Portugal": "🇵🇹", "Germany": "🇩🇪",
+    "Netherlands": "🇳🇱", "Belgium": "🇧🇪", "Norway": "🇳🇴", "Colombia": "🇨🇴", "Morocco": "🇲🇦",
+    "Japan": "🇯🇵", "USA": "🇺🇸", "Mexico": "🇲🇽", "Switzerland": "🇨🇭",
+    "Uruguay": "🇺🇾", "Croatia": "🇭🇷", "Ecuador": "🇪🇨", "Senegal": "🇸🇳",
+    "Sweden": "🇸🇪", "Turkiye": "🇹🇷",
+    "Austria": "🇦🇹", "Canada": "🇨🇦", "Ivory Coast": "🇨🇮", "Czechia": "🇨🇿",
+    "Egypt": "🇪🇬", "Paraguay": "🇵🇾", "Algeria": "🇩🇿", "Ghana": "🇬🇭",
+    "Bosnia & Herzegovina": "🇧🇦", "Iran": "🇮🇷", "South Korea": "🇰🇷",
+    "Tunisia": "🇹🇳", "Australia": "🇦🇺", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    "Cape Verde": "🇨🇻", "Curacao": "🇨🇼", "DR Congo": "🇨🇩",
+    "Haiti": "🇭🇹", "Iraq": "🇮🇶", "Jordan": "🇯🇴", "New Zealand": "🇳🇿",
+    "Panama": "🇵🇦", "Qatar": "🇶🇦", "Saudi Arabia": "🇸🇦",
+    "South Africa": "🇿🇦", "Uzbekistan": "🇺🇿"
+  };
+  return flags[teamName] || "";
+}
+
+async function loadWCStandings() {
+  const content = document.getElementById("wc-standings-content");
+  content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#8987;</div><p>Fetching group standings...</p></div>`;
+
+  try {
+    const res = await fetch("/api/wc/standings");
+    const data = await res.json();
+
+    if (data.error || !data.children || data.children.length === 0) {
+      content.innerHTML = `<div class="wc-no-data">
+        <div class="wc-no-data-icon">&#128337;</div>
+        <p><strong>Tournament starts 11 June 2026</strong></p>
+        <p style="margin-top:0.4rem;font-size:0.82rem">Group standings will appear here once matches begin.</p>
+      </div>`;
+      return;
+    }
+
+    content.innerHTML = renderGroupGrid(data);
+  } catch (err) {
+    content.innerHTML = `<div class="wc-no-data">
+      <div class="wc-no-data-icon">&#10060;</div>
+      <p>Could not load standings. Tournament may not have started yet.</p>
+      <p style="margin-top:0.4rem;font-size:0.8rem;color:#888">Starts 11 June 2026</p>
+    </div>`;
+  }
+}
+
+function renderGroupGrid(data) {
+  const groups = data.children || [];
+  if (groups.length === 0) return `<div class="wc-no-data"><p>No group data available yet.</p></div>`;
+
+  let html = `<div class="group-grid">`;
+
+  groups.forEach(group => {
+    const groupName = group.name || group.abbreviation || "Group";
+    const standings = group.standings?.entries || group.entries || [];
+
+    let rows = "";
+    standings.forEach((entry, i) => {
+      const team = entry.team?.displayName || entry.team?.name || "—";
+      const stats = entry.stats || [];
+      const getStat = (abbr) => {
+        const s = stats.find(x => x.abbreviation === abbr || x.name === abbr);
+        return s ? s.displayValue || s.value || "0" : "0";
+      };
+      const played = getStat("GP") || getStat("gp") || getStat("P");
+      const won = getStat("W") || getStat("wins");
+      const drawn = getStat("T") || getStat("D") || getStat("draws");
+      const lost = getStat("L") || getStat("losses");
+      const gd = getStat("GD") || getStat("gd");
+      const pts = getStat("PTS") || getStat("pts") || getStat("points");
+      const flag = wcTeamFlag(team);
+
+      rows += `<tr>
+        <td class="left" style="font-size:0.75rem">${i + 1}. ${flag} ${team}</td>
+        <td>${played}</td>
+        <td>${won}</td>
+        <td>${drawn}</td>
+        <td>${lost}</td>
+        <td>${gd}</td>
+        <td style="font-weight:700">${pts}</td>
+      </tr>`;
+    });
+
+    if (!rows) {
+      rows = `<tr><td colspan="7" style="text-align:center;padding:0.7rem;color:#888;font-size:0.78rem">No data yet</td></tr>`;
+    }
+
+    html += `<div class="group-card">
+      <div class="group-card-header">${groupName}</div>
+      <table>
+        <thead><tr>
+          <th class="left">Team</th>
+          <th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  });
+
+  html += `</div>`;
+  return html;
+}
 
 // Toast
 function showToast(msg) {
