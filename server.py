@@ -94,7 +94,7 @@ CACHE_TTL = 60  # seconds
 _wc_scores_cache = {"data": None, "time": 0}
 _wc_standings_cache = {"data": None, "time": 0}
 ESPN_WC_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
-ESPN_WC_STANDINGS = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/standings"
+ESPN_WC_STANDINGS = "https://site.api.espn.com/apis/v2/sports/soccer/fifa.world/standings"
 
 
 def load_wc_picks():
