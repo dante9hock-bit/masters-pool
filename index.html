@@ -2186,16 +2186,22 @@ function renderGroupGrid(data) {
     standings.forEach((entry, i) => {
       const team = entry.team?.displayName || entry.team?.name || "—";
       const stats = entry.stats || [];
-      const getStat = (abbr) => {
-        const s = stats.find(x => x.abbreviation === abbr || x.name === abbr);
-        return s ? s.displayValue || s.value || "0" : "0";
+      const getStat = (...keys) => {
+        for (const k of keys) {
+          const s = stats.find(x => x.abbreviation === k || x.name === k);
+          if (s) {
+            const v = s.displayValue ?? s.value;
+            if (v !== undefined && v !== null && v !== "") return v;
+          }
+        }
+        return "0";
       };
-      const played = getStat("GP") || getStat("gp") || getStat("P");
-      const won = getStat("W") || getStat("wins");
-      const drawn = getStat("T") || getStat("D") || getStat("draws");
-      const lost = getStat("L") || getStat("losses");
-      const gd = getStat("GD") || getStat("gd");
-      const pts = getStat("PTS") || getStat("pts") || getStat("points");
+      const played = getStat("GP", "gamesPlayed");
+      const won = getStat("W", "wins");
+      const drawn = getStat("D", "ties", "draws");
+      const lost = getStat("L", "losses");
+      const gd = getStat("GD", "pointDifferential");
+      const pts = getStat("points", "P", "PTS");
       const flag = wcTeamFlag(team);
 
       rows += `<tr>
