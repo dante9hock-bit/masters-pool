@@ -2238,7 +2238,31 @@ function renderGroupGrid(data) {
 
   groups.forEach(group => {
     const groupName = group.name || group.abbreviation || "Group";
-    const standings = group.standings?.entries || group.entries || [];
+    const standings = (group.standings?.entries || group.entries || []).slice();
+
+    // ESPN returns entries unsorted — order them by the official rank stat,
+    // falling back to points → goal difference → goals for.
+    const statVal = (entry, ...keys) => {
+      const stats = entry.stats || [];
+      for (const k of keys) {
+        const s = stats.find(x => x.abbreviation === k || x.name === k);
+        if (s) {
+          const v = s.value ?? parseFloat(s.displayValue);
+          if (v !== undefined && v !== null && !isNaN(v)) return Number(v);
+        }
+      }
+      return null;
+    };
+    standings.sort((a, b) => {
+      const ra = statVal(a, "rank", "R"), rb = statVal(b, "rank", "R");
+      if (ra !== null && rb !== null && ra !== rb) return ra - rb;
+      const pa = statVal(a, "points", "P") || 0, pb = statVal(b, "points", "P") || 0;
+      if (pb !== pa) return pb - pa;
+      const gda = statVal(a, "pointDifferential", "GD") || 0, gdb = statVal(b, "pointDifferential", "GD") || 0;
+      if (gdb !== gda) return gdb - gda;
+      const gfa = statVal(a, "pointsFor", "F") || 0, gfb = statVal(b, "pointsFor", "F") || 0;
+      return gfb - gfa;
+    });
 
     let rows = "";
     standings.forEach((entry, i) => {
