@@ -93,7 +93,13 @@ CACHE_TTL = 60  # seconds
 # ========== WORLD CUP ==========
 _wc_scores_cache = {"data": None, "time": 0}
 _wc_standings_cache = {"data": None, "time": 0}
-ESPN_WC_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
+# ESPN's scoreboard caps each response at 100 events, so the full 104-match
+# tournament is fetched in two windows (group stage + knockouts) and merged.
+ESPN_WC_SB_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
+ESPN_WC_SB_WINDOWS = [
+    ESPN_WC_SB_BASE + "?dates=20260611-20260627",  # group stage (72 matches)
+    ESPN_WC_SB_BASE + "?dates=20260628-20260720",  # knockouts (32 matches)
+]
 ESPN_WC_STANDINGS = "https://site.api.espn.com/apis/v2/sports/soccer/fifa.world/standings"
 
 
@@ -161,7 +167,43 @@ def fetch_espn(url, cache):
 
 
 def fetch_wc_scores():
-    return fetch_espn(ESPN_WC_SCOREBOARD, _wc_scores_cache)
+    """Fetch all WC matches across both scoreboard windows and merge into one
+    payload. Cached for CACHE_TTL seconds. ESPN caps each response at 100
+    events, so group stage and knockouts are requested separately."""
+    now = time.time()
+    if _wc_scores_cache["data"] and (now - _wc_scores_cache["time"]) < CACHE_TTL:
+        return _wc_scores_cache["data"]
+
+    merged = {"events": []}
+    seen = set()
+    ok = False
+    for url in ESPN_WC_SB_WINDOWS:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "ShanksPool/1.0"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                payload = json.loads(resp.read())
+                ok = True
+                for ev in payload.get("events", []):
+                    eid = ev.get("id")
+                    if eid in seen:
+                        continue
+                    seen.add(eid)
+                    merged["events"].append(ev)
+                # keep leagues/season metadata from the first successful window
+                if "leagues" not in merged and "leagues" in payload:
+                    merged["leagues"] = payload["leagues"]
+                    merged["season"] = payload.get("season")
+        except Exception as e:
+            print(f"WC scoreboard fetch error ({url}): {e}")
+
+    if ok:
+        raw = json.dumps(merged).encode()
+        _wc_scores_cache["data"] = raw
+        _wc_scores_cache["time"] = now
+        return raw
+    if _wc_scores_cache["data"]:
+        return _wc_scores_cache["data"]
+    return json.dumps({"error": "fetch failed", "events": []}).encode()
 
 
 def fetch_wc_standings():

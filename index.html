@@ -1864,6 +1864,45 @@ const WC_SCORING = {
   winFinal: 15
 };
 
+// --- Team-name normalisation (so picks match ESPN feed names) ---
+const WC_NAME_ALIASES = {
+  "usa": "united states",
+  "us": "united states",
+  "dr congo": "congo dr"
+};
+function wcNormName(name) {
+  return (name || "")
+    .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")   // strip accents
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function wcCanonName(name) {
+  const n = wcNormName(name);
+  return WC_NAME_ALIASES[n] || n;
+}
+// Canonical names of the 48 real teams — used to ignore "Group A 2nd Place" placeholders
+const WC_VALID_TEAMS = new Set(
+  WC_TIERS.reduce((acc, tier) => acc.concat(tier.teams.map(t => wcCanonName(t.name))), [])
+);
+
+// --- Round detection from ESPN season.slug (placeholders in name/notes are unreliable) ---
+function wcRoundType(event) {
+  const slug = (event && event.season && event.season.slug ? event.season.slug : "").toLowerCase();
+  const txt = (event && event.name ? event.name : "").toLowerCase();
+  const probe = (s) =>
+    s.includes("group") ? "group" :
+    (s.includes("round-of-32") || s.includes("round of 32")) ? "r32" :
+    (s.includes("round-of-16") || s.includes("round of 16")) ? "r16" :
+    s.includes("quarter") ? "qf" :
+    s.includes("semi") ? "sf" :
+    (s.includes("3rd") || s.includes("third")) ? "third" :
+    s.includes("final") ? "final" : "";
+  return probe(slug) || probe(txt) || "";
+}
+
 let wcInitialised = false;
 
 function initWC() {
@@ -2010,7 +2049,7 @@ async function loadWCLeaderboard() {
         { tier: 4, cls: "t4", name: pick.tier4 },
         { tier: 5, cls: "t5", name: pick.tier5 }
       ];
-      const totalPts = teams.reduce((sum, t) => sum + (teamPoints[t.name] || 0), 0);
+      const totalPts = teams.reduce((sum, t) => sum + (teamPoints[wcCanonName(t.name)] || 0), 0);
       return { name: pick.name, teams, totalPts };
     });
 
@@ -2032,9 +2071,10 @@ async function loadWCLeaderboard() {
       </tr></thead><tbody>`;
 
     rows.forEach(r => {
-      const chips = r.teams.map(t =>
-        `<span class="wc-team-chip ${t.cls}">${wcTeamFlag(t.name)} ${t.name}${tournamentStarted && teamPoints[t.name] ? ` <strong>${teamPoints[t.name]}</strong>` : ""}</span>`
-      ).join(" ");
+      const chips = r.teams.map(t => {
+        const tp = teamPoints[wcCanonName(t.name)] || 0;
+        return `<span class="wc-team-chip ${t.cls}">${wcTeamFlag(t.name)} ${t.name}${tournamentStarted && tp ? ` <strong>${tp}</strong>` : ""}</span>`;
+      }).join(" ");
       const rowCls = r.pos === 1 ? "wc-first" : "";
       html += `<tr class="${rowCls}">
         <td class="num" style="font-weight:700">${r.pos}</td>
@@ -2057,73 +2097,91 @@ async function loadWCLeaderboard() {
 }
 
 function buildTeamPointsMap(espnData) {
-  // Returns { "Spain": 7, "France": 3, ... } based on ESPN events
+  // Returns { "<canonical team name>": points } based on ESPN events.
+  // Keyed by canonical name so picks (e.g. "USA", "Bosnia & Herzegovina")
+  // match the ESPN feed ("United States", "Bosnia-Herzegovina").
   const map = {};
   if (!espnData || !espnData.events) return map;
 
+  const advanced = new Set();       // teams already credited the +3 advance bonus
+  const add = (canon, pts) => {
+    if (!canon || !pts) return;
+    map[canon] = (map[canon] || 0) + pts;
+  };
+
   try {
     espnData.events.forEach(event => {
-      const competitors = event?.competitions?.[0]?.competitors || [];
-      const status = event?.status?.type?.completed || false;
-      const statusName = (event?.status?.type?.name || "").toLowerCase();
-
-      if (!status && statusName !== "final") return; // only completed matches
-
+      const round = wcRoundType(event);
+      const comp = event?.competitions?.[0];
+      const competitors = comp?.competitors || [];
       if (competitors.length < 2) return;
-      const home = competitors.find(c => c.homeAway === "home");
-      const away = competitors.find(c => c.homeAway === "away");
-      if (!home || !away) return;
 
-      const homeScore = parseInt(home.score || "0");
-      const awayScore = parseInt(away.score || "0");
-      const homeName = home.team?.displayName || home.team?.name || "";
-      const awayName = away.team?.displayName || away.team?.name || "";
+      const home = competitors.find(c => c.homeAway === "home") || competitors[0];
+      const away = competitors.find(c => c.homeAway === "away") || competitors[1];
+      const homeCanon = wcCanonName(home.team?.displayName || home.team?.name || "");
+      const awayCanon = wcCanonName(away.team?.displayName || away.team?.name || "");
+      const homeReal = WC_VALID_TEAMS.has(homeCanon);   // ignore "Group A 2nd Place" placeholders
+      const awayReal = WC_VALID_TEAMS.has(awayCanon);
 
-      // Determine round from notes / type
-      const roundType = (event?.competitions?.[0]?.notes?.[0]?.headline || event?.name || "").toLowerCase();
-      const pts = pointsForResult(homeScore, awayScore, roundType);
+      // Advance-from-groups bonus (+3): any REAL team slotted into a knockout
+      // fixture has advanced. Credited once, as soon as the fixture is set —
+      // it does not require the match to be played.
+      if (round && round !== "group") {
+        if (homeReal && !advanced.has(homeCanon)) { advanced.add(homeCanon); add(homeCanon, WC_SCORING.advanceGroup); }
+        if (awayReal && !advanced.has(awayCanon)) { advanced.add(awayCanon); add(awayCanon, WC_SCORING.advanceGroup); }
+      }
 
-      if (!map[homeName]) map[homeName] = 0;
-      if (!map[awayName]) map[awayName] = 0;
-      map[homeName] += pts.home;
-      map[awayName] += pts.away;
+      // Match result points only count once the match is completed.
+      const st = (event?.status?.type?.name || "").toLowerCase();
+      const completed = event?.status?.type?.completed === true
+        || st === "status_full_time" || st === "status_final";
+      if (!completed) return;
+
+      const homeScore = parseInt(home.score || "0", 10);
+      const awayScore = parseInt(away.score || "0", 10);
+      const pts = pointsForResult(homeScore, awayScore, round, home, away);
+      if (homeReal) add(homeCanon, pts.home);
+      if (awayReal) add(awayCanon, pts.away);
     });
   } catch (_) {}
 
   return map;
 }
 
-function pointsForResult(homeScore, awayScore, roundType) {
-  const isGroup = roundType.includes("group");
-  const isR32 = roundType.includes("round of 32");
-  const isR16 = roundType.includes("round of 16");
-  const isQF = roundType.includes("quarter") || roundType.includes("quarterfinal");
-  const isSF = roundType.includes("semi");
-  const isFinal = roundType.includes("final") && !roundType.includes("semi") && !roundType.includes("quarter");
-
-  if (isGroup) {
+function pointsForResult(homeScore, awayScore, round, home, away) {
+  if (round === "group") {
     if (homeScore > awayScore) return { home: WC_SCORING.groupWin, away: 0 };
     if (awayScore > homeScore) return { home: 0, away: WC_SCORING.groupWin };
     return { home: WC_SCORING.groupDraw, away: WC_SCORING.groupDraw };
   }
 
-  // Knockout — winner gets points, loser gets 0
-  const winPts = isR32 ? WC_SCORING.winR32
-    : isR16 ? WC_SCORING.winR16
-    : isQF ? WC_SCORING.winQF
-    : isSF ? WC_SCORING.winSF
-    : isFinal ? WC_SCORING.winFinal : 0;
+  // Knockout — winner gets the round's points; loser gets 0 (12 if it's the final)
+  const winMap = {
+    r32: WC_SCORING.winR32,
+    r16: WC_SCORING.winR16,
+    qf:  WC_SCORING.winQF,
+    sf:  WC_SCORING.winSF,
+    final: WC_SCORING.winFinal
+  };
+  const winPts = winMap[round] || 0;
+  const loserPts = round === "final" ? WC_SCORING.runnerUp : 0;
+  // 3rd-place match (round === "third") awards 0 to both — not in the scoring system.
 
-  const loserPts = isFinal ? WC_SCORING.runnerUp : 0;
+  // Prefer ESPN's explicit winner flag (correct when decided on penalties),
+  // fall back to the scoreline.
+  let homeWon, awayWon;
+  if (home && typeof home.winner === "boolean") {
+    homeWon = home.winner === true;
+    awayWon = (away && away.winner === true);
+  } else {
+    homeWon = homeScore > awayScore;
+    awayWon = awayScore > homeScore;
+  }
 
-  if (homeScore > awayScore) return { home: winPts, away: loserPts };
-  if (awayScore > homeScore) return { home: loserPts, away: winPts };
-  // Draw in KO — assume penalties; ESPN usually shows winner via score
+  if (homeWon) return { home: winPts, away: loserPts };
+  if (awayWon) return { home: loserPts, away: winPts };
   return { home: 0, away: 0 };
 }
-
-// Group-stage advance bonus: track separately if needed — ESPN standings can tell us
-// For now, teams that appear in the standings with rounds played > 3 are "advanced"
 
 function wcTeamFlag(teamName) {
   const flags = {
