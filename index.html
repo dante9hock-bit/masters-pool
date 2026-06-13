@@ -44,7 +44,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(255,255,255,.55);border-bottom:1px solid var(--border)}
 .topbar-in{max-width:1080px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:11px}
-.brand .mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--terra),var(--gold));display:grid;place-items:center;font-size:19px;box-shadow:0 6px 18px rgba(188,108,80,.35)}
+.brand .mark{width:42px;height:42px;border-radius:11px;object-fit:cover;display:block;background:#13362c;box-shadow:0 6px 16px rgba(48,76,83,.24)}
 .brand b{font-family:'Space Grotesk';font-weight:700;font-size:1.05rem;letter-spacing:-.02em;display:block;line-height:1.1}
 .brand span{display:block;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:2px}
 .live-pill{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:600;color:var(--teal);background:var(--surface);border:1px solid var(--border-strong);padding:7px 14px;border-radius:99px}
@@ -264,7 +264,7 @@ tr.zero-rounds{opacity:.5}
 <div class="topbar">
   <div class="topbar-in">
     <div class="brand">
-      <div class="mark">⛳</div>
+      <img class="mark" src="logo.png" alt="Shanks Social Club logo">
       <div><b>Shanks Social Club</b><span>Est. by Mates · Fuelled by Competition</span></div>
     </div>
     <div class="live-pill"><span class="dot"></span> 2026 Season</div>
@@ -287,7 +287,7 @@ tr.zero-rounds{opacity:.5}
   <div class="panel active" id="home-panel">
     <section class="home-hero">
       <div class="home-pill"><span class="dot"></span> 2026 Season &middot; Live</div>
-      <h1 class="home-title">The race for<br><span class="grad">the green jacket</span></h1>
+      <h1 class="home-title">Shanks<br><span class="grad">Social Club</span></h1>
       <p class="home-sub">Every round, every bonus, every shank &mdash; tracked. The home of the most competitive social golf pool in the southern highlands.</p>
       <div class="home-cta">
         <button class="home-btn primary" data-go="club">View Leaderboard</button>
