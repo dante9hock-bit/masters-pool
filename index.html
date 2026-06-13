@@ -204,6 +204,56 @@ tr.zero-rounds{opacity:.5}
   .lb-scoreboard,.rules-card{padding:18px}
   .container{padding:24px 16px 70px}
 }
+
+/* ===== HOME ===== */
+.home-hero{text-align:center;padding:32px 0 4px}
+.home-pill{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:600;color:var(--teal);background:var(--surface);border:1px solid var(--border-strong);padding:7px 15px;border-radius:99px;margin-bottom:22px}
+.home-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+.home-title{font-family:'Bricolage Grotesque','Space Grotesk',sans-serif;font-weight:800;font-size:clamp(2.4rem,6.4vw,4.4rem);line-height:.98;letter-spacing:-.03em;color:var(--text)}
+.home-title .grad{background:linear-gradient(110deg,var(--terra),var(--gold) 55%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.home-sub{max-width:560px;margin:18px auto 0;color:var(--muted);font-size:1.02rem;line-height:1.6}
+.home-cta{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.home-btn{font-family:'Inter';font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:99px;border:1px solid transparent;cursor:pointer;transition:.25s}
+.home-btn.primary{background:var(--terra);color:#fff;box-shadow:0 10px 28px rgba(188,108,80,.3)}
+.home-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(188,108,80,.42)}
+.home-btn.ghost{background:var(--surface);color:var(--text);border-color:var(--border-strong)}
+.home-btn.ghost:hover{background:var(--surface-2);transform:translateY(-2px)}
+.home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:46px 0 8px}
+@media(max-width:680px){.home-stats{grid-template-columns:repeat(2,1fr)}}
+.home-stat{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-sm);padding:20px 16px;text-align:center}
+.home-stat .n{font-family:'Space Grotesk';font-weight:700;font-size:2rem;letter-spacing:-.02em;color:var(--teal-deep)}
+.home-stat .l{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;font-weight:600}
+.home-section{margin-top:54px}
+.home-sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.home-eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:700;margin-bottom:6px}
+.home-sec-head h2{font-family:'Bricolage Grotesque','Space Grotesk';font-weight:800;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;color:var(--text)}
+.home-link{background:var(--surface);border:1px solid var(--border);color:var(--text);font-weight:600;font-size:.82rem;padding:9px 16px;border-radius:99px;cursor:pointer;transition:.2s;white-space:nowrap}
+.home-link:hover{background:var(--terra);color:#fff;border-color:transparent}
+.home-podium{display:grid;grid-template-columns:1fr 1.16fr 1fr;gap:14px;align-items:end}
+@media(max-width:620px){.home-podium{grid-template-columns:1fr}}
+.home-pod{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:22px 16px;text-align:center;position:relative;overflow:hidden}
+.home-pod.one{border-color:rgba(221,154,60,.5);background:linear-gradient(180deg,rgba(221,154,60,.14),var(--surface));transform:translateY(-12px)}
+@media(max-width:620px){.home-pod.one{transform:none}}
+.home-pod .medal{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-family:'Space Grotesk';margin:0 auto 12px;color:#fff}
+.home-pod.one .medal{background:linear-gradient(135deg,var(--gold),#f0c87e);color:#5A2F25}
+.home-pod.two .medal{background:linear-gradient(135deg,#b7c4c7,#94a7ab)}
+.home-pod.three .medal{background:linear-gradient(135deg,var(--terra),#d98e6f)}
+.home-pod .nm{font-family:'Space Grotesk';font-weight:700;font-size:1.12rem;color:var(--text)}
+.home-pod .av{font-size:1.9rem;font-weight:800;font-family:'Space Grotesk';margin-top:4px;color:var(--teal-deep)}
+.home-pod.one .av{color:var(--terra-deep)}
+.home-pod .unit{font-size:.64rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.home-pod .crown{position:absolute;top:12px;right:14px;font-size:1.05rem}
+.home-next{display:grid;grid-template-columns:1.3fr 1fr;gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;transition:.22s}
+.home-next:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(48,76,83,.16)}
+@media(max-width:620px){.home-next{grid-template-columns:1fr}}
+.hn-left{padding:28px;background:linear-gradient(135deg,rgba(188,108,80,.16),rgba(52,112,122,.08))}
+.hn-right{padding:28px;background:var(--surface);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}
+.hn-tag{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.home-next h3{font-family:'Bricolage Grotesque','Space Grotesk';font-weight:800;font-size:1.55rem;letter-spacing:-.01em;margin:8px 0 6px;color:var(--text)}
+.hn-meta{color:var(--muted);font-size:.92rem;line-height:1.5}
+.hn-days{font-family:'Space Grotesk';font-weight:700;font-size:2.8rem;color:var(--teal-deep);line-height:1}
+.hn-days-l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+.home-no-data{padding:28px;text-align:center;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -223,8 +273,9 @@ tr.zero-rounds{opacity:.5}
 
 <div class="tabbar">
   <nav class="tabs">
+    <button class="tab-btn active" data-tab="home">Home</button>
     <button class="tab-btn" data-tab="rules">Rules</button>
-    <button class="tab-btn active" data-tab="club">Club Leaderboard</button>
+    <button class="tab-btn" data-tab="club">Club Leaderboard</button>
     <button class="tab-btn" data-tab="events">Events</button>
     <button class="tab-btn" data-tab="masters">Masters 2026</button>
     <button class="tab-btn" data-tab="wc">World Cup</button>
@@ -232,6 +283,59 @@ tr.zero-rounds{opacity:.5}
 </div>
 
 <div class="container">
+  <!-- HOME TAB -->
+  <div class="panel active" id="home-panel">
+    <section class="home-hero">
+      <div class="home-pill"><span class="dot"></span> 2026 Season &middot; Live</div>
+      <h1 class="home-title">The race for<br><span class="grad">the green jacket</span></h1>
+      <p class="home-sub">Every round, every bonus, every shank &mdash; tracked. The home of the most competitive social golf pool in the southern highlands.</p>
+      <div class="home-cta">
+        <button class="home-btn primary" data-go="club">View Leaderboard</button>
+        <button class="home-btn ghost" data-go="events">Upcoming Events</button>
+      </div>
+      <div class="home-stats">
+        <div class="home-stat"><div class="n" id="hs-players">&mdash;</div><div class="l">Active Players</div></div>
+        <div class="home-stat"><div class="n" id="hs-rounds">&mdash;</div><div class="l">Rounds Played</div></div>
+        <div class="home-stat"><div class="n" id="hs-top">&mdash;</div><div class="l">Top Avg Pts</div></div>
+        <div class="home-stat"><div class="n" id="hs-next">&mdash;</div><div class="l">Days to Round 7</div></div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-sec-head">
+        <div>
+          <div class="home-eyebrow">Season Standings</div>
+          <h2>Current Top 3</h2>
+        </div>
+        <button class="home-link" data-go="club">Full table &rarr;</button>
+      </div>
+      <div class="home-podium" id="home-podium">
+        <div class="home-no-data">Loading standings&hellip;</div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-sec-head">
+        <div>
+          <div class="home-eyebrow">What&rsquo;s On</div>
+          <h2>Next Up</h2>
+        </div>
+        <button class="home-link" data-go="events">All events &rarr;</button>
+      </div>
+      <div class="home-next" data-go="events">
+        <div class="hn-left">
+          <div class="hn-tag">Club Round &middot; Round 7</div>
+          <h3>To Be Announced</h3>
+          <div class="hn-meta">Sunday, 5 July 2026<br>Course &amp; tee time confirmed closer to the day</div>
+        </div>
+        <div class="hn-right">
+          <div class="hn-days" id="hn-days">&mdash;</div>
+          <div class="hn-days-l">Days to go</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
   <!-- RULES TAB -->
   <div class="panel" id="rules-panel">
     <div class="rules-content">
@@ -291,7 +395,7 @@ tr.zero-rounds{opacity:.5}
   </div>
 
   <!-- CLUB LEADERBOARD TAB -->
-  <div class="panel active" id="club-panel">
+  <div class="panel" id="club-panel">
     <div class="lb-scoreboard">
       <div class="lb-header">
         <h2>Club Leaderboard</h2>
@@ -557,13 +661,71 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
 });
 
+// Home page CTAs / links / cards that jump to another tab
+document.querySelectorAll("[data-go]").forEach(el => {
+  el.addEventListener("click", () => switchTab(el.dataset.go));
+});
+
 function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === `${tab}-panel`));
+  window.scrollTo({ top: 0, behavior: "instant" in document.documentElement.style ? "instant" : "auto" });
+  if (tab === "home") renderHome();
   if (tab === "masters") loadLeaderboard();
   if (tab === "club") renderClubLeaderboard();
   if (tab === "events") renderCountdown();
   if (tab === "wc") initWC();
+}
+
+// ========== HOME PAGE (reads the existing /api/club feed, read-only) ==========
+const NEXT_EVENT_DATE = "2026-07-05T00:00:00";
+
+function daysUntilNextEvent() {
+  const eventDate = new Date(NEXT_EVENT_DATE);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.max(0, Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24)));
+}
+
+function renderHome() {
+  const days = daysUntilNextEvent();
+  const hsNext = document.getElementById("hs-next");
+  const hnDays = document.getElementById("hn-days");
+  if (hsNext) hsNext.textContent = days;
+  if (hnDays) hnDays.textContent = days;
+
+  fetch("/api/club")
+    .then(r => r.json())
+    .then(rows => {
+      if (!rows || !rows.length) return;
+      const active = rows.filter(p => p.rounds > 0);
+      // rows arrive sorted by avg_pts desc from the API
+      const players = document.getElementById("hs-players");
+      const roundsEl = document.getElementById("hs-rounds");
+      const topEl = document.getElementById("hs-top");
+      if (players) players.textContent = active.length;
+      if (roundsEl) roundsEl.textContent = rows.reduce((m, p) => Math.max(m, p.rounds || 0), 0);
+      if (topEl && active[0]) topEl.textContent = Number(active[0].avg_pts).toFixed(1);
+
+      const podium = document.getElementById("home-podium");
+      if (!podium) return;
+      const top = active.slice(0, 3);
+      if (top.length < 3) { podium.innerHTML = `<div class="home-no-data">Standings will appear after the first round.</div>`; return; }
+      const order = [
+        { p: top[1], cls: "two", medal: "2", crown: "" },
+        { p: top[0], cls: "one", medal: "1", crown: "👑" },
+        { p: top[2], cls: "three", medal: "3", crown: "" }
+      ];
+      podium.innerHTML = order.map(o => `
+        <div class="home-pod ${o.cls}">
+          ${o.crown ? `<div class="crown">${o.crown}</div>` : ""}
+          <div class="medal">${o.medal}</div>
+          <div class="nm">${o.p.name}</div>
+          <div class="av">${Number(o.p.avg_pts).toFixed(2)}</div>
+          <div class="unit">avg pts</div>
+        </div>`).join("");
+    })
+    .catch(() => {});
 }
 
 function renderCountdown() {
@@ -886,7 +1048,7 @@ function startLbAutoRefresh() {
 startLbAutoRefresh();
 
 // Default to Club Leaderboard tab
-switchTab("club");
+switchTab("home");
 
 // ========== WORLD CUP 2026 ==========
 
