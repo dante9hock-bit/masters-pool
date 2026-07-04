@@ -254,6 +254,46 @@ tr.zero-rounds{opacity:.5}
 .hn-days{font-family:'Space Grotesk';font-weight:700;font-size:2.8rem;color:var(--teal-deep);line-height:1}
 .hn-days-l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
 .home-no-data{padding:28px;text-align:center;color:var(--muted)}
+
+/* ===== KNOCKOUT BRACKET ===== */
+.kbracket-wrap{position:relative}
+.kbracket{display:flex;gap:26px;overflow-x:auto;padding:6px 4px 16px;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent}
+.kbracket::-webkit-scrollbar{height:8px}
+.kbracket::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px}
+.kbracket::-webkit-scrollbar-track{background:transparent}
+.kround{flex:0 0 auto;width:212px;display:flex;flex-direction:column}
+.kround-title{font-family:'Space Grotesk';font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep);text-align:center;padding:8px 0;margin-bottom:10px;border-bottom:2px solid var(--border-strong)}
+.kround-body{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:14px}
+.kround-third{opacity:.92}
+.kround-third .kround-title{color:var(--muted);border-bottom-color:var(--border)}
+.kmatch{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-sm);padding:9px 12px;transition:.2s}
+.kmatch:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.kmatch.in{border-color:var(--terra);box-shadow:0 0 0 2px rgba(188,108,80,.18),var(--shadow-sm)}
+/* bracket connector nubs */
+.kround.kfeed .kmatch::after{content:"";position:absolute;right:-14px;top:50%;width:14px;height:2px;background:var(--border-strong)}
+.kround.kfeed .kmatch::before{content:"";position:absolute;right:-14px;top:50%;width:2px;height:0;background:var(--border-strong)}
+.kmatch-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.kdate{font-size:.67rem;color:var(--muted-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kstatus{font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.55);border:1px solid var(--border);padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0}
+.kstatus.live{color:#fff;background:var(--terra);border-color:transparent;animation:pulse 2s infinite}
+.kteam{display:flex;align-items:center;gap:8px;padding:5px 1px}
+.kteam+.kteam{border-top:1px solid var(--border)}
+.kflag{font-size:1.05rem;line-height:1;width:20px;text-align:center;flex-shrink:0}
+.kshield{opacity:.45;width:20px;text-align:center;flex-shrink:0}
+.kname{font-size:.85rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.kscore{font-family:'Space Grotesk';font-weight:700;font-size:.95rem;color:var(--text);margin-left:auto;flex-shrink:0}
+.kpen{font-size:.68rem;color:var(--muted);margin-left:1px}
+.kteam.tbd .kname{color:var(--muted-2);font-weight:500}
+.kteam.win .kname{color:var(--terra-deep);font-weight:800}
+.kteam.win .kscore{color:var(--terra-deep)}
+.kteam.lose{opacity:.5}
+.kbracket-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.kbracket-hint{font-size:.76rem;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:7px}
+.kdot-live{color:var(--terra);animation:pulse 2s infinite;font-size:.7rem}
+.kbracket-ctrls{display:flex;gap:8px;flex-shrink:0}
+.kbracket-nav{width:38px;height:38px;border-radius:50%;border:1px solid var(--border-strong);background:var(--surface);color:var(--teal-deep);font-size:1.3rem;font-weight:700;cursor:pointer;display:grid;place-items:center;line-height:1;transition:.2s;box-shadow:var(--shadow-sm)}
+.kbracket-nav:hover{background:var(--terra);color:#fff;border-color:transparent;transform:translateY(-1px)}
+.kbracket-nav:active{transform:translateY(0)}
   </style>
 </head>
 <body>
@@ -325,8 +365,8 @@ tr.zero-rounds{opacity:.5}
       <div class="home-next" data-go="events">
         <div class="hn-left">
           <div class="hn-tag">Club Round &middot; Round 7</div>
-          <h3>To Be Announced</h3>
-          <div class="hn-meta">Sunday, 5 July 2026<br>Course &amp; tee time confirmed closer to the day</div>
+          <h3>Bingara Gorge Golf Course</h3>
+          <div class="hn-meta">Sunday, 5 July 2026 &middot; 8:30 AM tee off<br>Wilton NSW 2571</div>
         </div>
         <div class="hn-right">
           <div class="hn-days" id="hn-days">&mdash;</div>
@@ -430,15 +470,15 @@ tr.zero-rounds{opacity:.5}
             <div class="event-detail-icon">📍</div>
             <div>
               <div class="event-detail-label">Location</div>
-              <div class="event-detail-value">To Be Announced</div>
-              <div class="event-detail-address">Course &amp; tee time confirmed closer to the day</div>
+              <div class="event-detail-value">Bingara Gorge Golf Course</div>
+              <div class="event-detail-address">Bingara Gorge, Wilton NSW 2571</div>
             </div>
           </div>
           <div class="event-detail-row">
             <div class="event-detail-icon">⏰</div>
             <div>
               <div class="event-detail-label">Tee Time</div>
-              <div class="event-detail-value">TBA</div>
+              <div class="event-detail-value">8:30 AM</div>
             </div>
           </div>
           <div class="event-detail-row">
@@ -529,11 +569,11 @@ tr.zero-rounds{opacity:.5}
     <div class="lb-scoreboard">
       <div class="lb-header">
         <h2>World Cup 2026</h2>
-        <div class="lb-updated">Picks locked &middot; Group Stage live &middot; Scored across everyone&rsquo;s 5 picks</div>
+        <div class="lb-updated">Picks locked &middot; Knockout stage &middot; Scored across everyone&rsquo;s 5 picks</div>
       </div>
       <div class="wc-subnav">
         <button class="wc-subnav-btn active" data-wc="leaderboard">Pool Leaderboard</button>
-        <button class="wc-subnav-btn" data-wc="standings">Live Standings</button>
+        <button class="wc-subnav-btn" data-wc="standings">Knockout Bracket</button>
       </div>
 
       <!-- LEADERBOARD sub-panel (default) -->
@@ -561,7 +601,7 @@ tr.zero-rounds{opacity:.5}
       <!-- STANDINGS sub-panel -->
       <div class="wc-subpanel" id="wc-standings-sub">
         <div id="wc-standings-content">
-          <div class="wc-no-data"><div class="wc-no-data-icon">&#127942;</div><p>Loading standings...</p></div>
+          <div class="wc-no-data"><div class="wc-no-data-icon">&#9917;</div><p>Loading knockout bracket...</p></div>
         </div>
       </div>
     </div>
@@ -1483,118 +1523,210 @@ function wcTeamFlag(teamName) {
   return flags[teamName] || "";
 }
 
-async function loadWCStandings() {
+// ========== KNOCKOUT BRACKET (live from the scoreboard feed) ==========
+const KO_ROUNDS = [
+  { slug: "round-of-32",     title: "Round of 32" },
+  { slug: "round-of-16",     title: "Round of 16" },
+  { slug: "quarterfinals",   title: "Quarter-finals" },
+  { slug: "semifinals",      title: "Semi-finals" },
+  { slug: "final",           title: "Final" },
+  { slug: "3rd-place-match", title: "3rd Place" }
+];
+const KO_FEEDER_ROUNDS = ["round-of-32", "round-of-16", "quarterfinals", "semifinals"];
+
+// Flag lookup keyed by canonical name so ESPN names (United States, Congo DR,
+// Bosnia-Herzegovina) resolve to the same flag as the pick names.
+let _koFlagMap = null;
+function koFlag(espnName) {
+  if (!_koFlagMap) {
+    _koFlagMap = {};
+    // wcTeamFlag holds the emoji keyed by pick-name; re-key by canonical name.
+    const src = {
+      "Spain":"🇪🇸","France":"🇫🇷","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Brazil":"🇧🇷","Argentina":"🇦🇷","Portugal":"🇵🇹","Germany":"🇩🇪",
+      "Netherlands":"🇳🇱","Belgium":"🇧🇪","Norway":"🇳🇴","Colombia":"🇨🇴","Morocco":"🇲🇦","Japan":"🇯🇵","USA":"🇺🇸",
+      "Mexico":"🇲🇽","Switzerland":"🇨🇭","Uruguay":"🇺🇾","Croatia":"🇭🇷","Ecuador":"🇪🇨","Senegal":"🇸🇳","Sweden":"🇸🇪",
+      "Turkiye":"🇹🇷","Austria":"🇦🇹","Canada":"🇨🇦","Ivory Coast":"🇨🇮","Czechia":"🇨🇿","Egypt":"🇪🇬","Paraguay":"🇵🇾",
+      "Algeria":"🇩🇿","Ghana":"🇬🇭","Bosnia & Herzegovina":"🇧🇦","Iran":"🇮🇷","South Korea":"🇰🇷","Tunisia":"🇹🇳",
+      "Australia":"🇦🇺","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Cape Verde":"🇨🇻","Curacao":"🇨🇼","DR Congo":"🇨🇩","Haiti":"🇭🇹",
+      "Iraq":"🇮🇶","Jordan":"🇯🇴","New Zealand":"🇳🇿","Panama":"🇵🇦","Qatar":"🇶🇦","Saudi Arabia":"🇸🇦",
+      "South Africa":"🇿🇦","Uzbekistan":"🇺🇿"
+    };
+    Object.keys(src).forEach(k => { _koFlagMap[wcCanonName(k)] = src[k]; });
+  }
+  return _koFlagMap[wcCanonName(espnName || "")] || "";
+}
+
+// A slot is "real" if it names an actual team (not a "… Winner/Loser/TBD" placeholder)
+function koIsPlaceholder(name) {
+  if (!name) return true;
+  return /winner|loser|tbd|to be|round of|quarterfinal|semifinal|group [a-l]|\bplace\b|\d(?:st|nd|rd|th)\s*place/i.test(name);
+}
+
+// Turn an ESPN placeholder ("Quarterfinal 2 Winner", "Semifinal 1 Loser",
+// "Round of 16 3 Winner") into a short readable label for the bracket.
+function koPlaceholderLabel(name) {
+  if (!name) return "TBD";
+  let m;
+  if ((m = name.match(/Round of (\d+)\s+(\d+)\s+(Winner|Loser)/i))) return `${m[3]} R${m[1]} #${m[2]}`;
+  if ((m = name.match(/Quarterfinal\s+(\d+)\s+(Winner|Loser)/i)))    return `${m[2]} QF${m[1]}`;
+  if ((m = name.match(/Semifinal\s+(\d+)\s+(Winner|Loser)/i)))       return `${m[2]} SF${m[1]}`;
+  if ((m = name.match(/\bFinal\s+(Winner|Loser)/i)))                 return `${m[1]} of Final`;
+  if ((m = name.match(/Group ([A-L]).*?(1st|2nd|3rd)/i)))            return `Group ${m[1].toUpperCase()} ${m[2]}`;
+  return name;
+}
+
+function koMatchWhen(iso, withTime) {
+  const d = new Date(iso);
+  if (isNaN(d)) return "";
+  const opts = withTime
+    ? { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }
+    : { weekday: "short", day: "numeric", month: "short" };
+  return d.toLocaleString(undefined, opts);
+}
+
+let wcBracketTimer = null;
+
+async function loadWCStandings(silent) {
   const content = document.getElementById("wc-standings-content");
-  content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#8987;</div><p>Fetching group standings...</p></div>`;
-
+  if (!content) return;
+  if (!silent) {
+    content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#9917;</div><p>Loading knockout bracket&hellip;</p></div>`;
+  }
   try {
-    const res = await fetch("/api/wc/standings");
+    const res = await fetch("/api/wc/scores");
     const data = await res.json();
-
-    if (data.error || !data.children || data.children.length === 0) {
+    const events = (data && data.events) || [];
+    const ko = events.filter(e => KO_ROUNDS.some(r => r.slug === (e.season && e.season.slug)));
+    if (!ko.length) {
       content.innerHTML = `<div class="wc-no-data">
         <div class="wc-no-data-icon">&#128337;</div>
-        <p><strong>Tournament starts 11 June 2026</strong></p>
-        <p style="margin-top:0.4rem;font-size:0.82rem">Group standings will appear here once matches begin.</p>
+        <p><strong>Knockout stage hasn&rsquo;t started yet</strong></p>
+        <p style="margin-top:0.4rem;font-size:0.82rem">The bracket appears once the Round of 32 is set (from 28 June).</p>
       </div>`;
+      scheduleBracketRefresh();
       return;
     }
-
-    content.innerHTML = renderGroupGrid(data);
+    // Preserve horizontal scroll position across silent refreshes
+    const prev = content.querySelector(".kbracket");
+    const scrollLeft = prev ? prev.scrollLeft : null;
+    content.innerHTML = renderKnockoutBracket(ko);
+    const wrap = content.querySelector(".kbracket");
+    if (wrap) {
+      if (scrollLeft !== null) wrap.scrollLeft = scrollLeft;
+      else scrollBracketToLive(wrap);
+    }
+    scheduleBracketRefresh();
   } catch (err) {
-    content.innerHTML = `<div class="wc-no-data">
-      <div class="wc-no-data-icon">&#10060;</div>
-      <p>Could not load standings. Tournament may not have started yet.</p>
-      <p style="margin-top:0.4rem;font-size:0.8rem;color:#888">Starts 11 June 2026</p>
-    </div>`;
+    if (!silent) {
+      content.innerHTML = `<div class="wc-no-data"><div class="wc-no-data-icon">&#10060;</div><p>Could not load the bracket. Retrying shortly&hellip;</p></div>`;
+    }
+    scheduleBracketRefresh();
   }
 }
 
-function renderGroupGrid(data) {
-  const groups = data.children || [];
-  if (groups.length === 0) return `<div class="wc-no-data"><p>No group data available yet.</p></div>`;
-
-  let html = `<div class="group-grid">`;
-
-  groups.forEach(group => {
-    const groupName = group.name || group.abbreviation || "Group";
-    const standings = (group.standings?.entries || group.entries || []).slice();
-
-    // ESPN returns entries unsorted — order them by the official rank stat,
-    // falling back to points → goal difference → goals for.
-    const statVal = (entry, ...keys) => {
-      const stats = entry.stats || [];
-      for (const k of keys) {
-        const s = stats.find(x => x.abbreviation === k || x.name === k);
-        if (s) {
-          const v = s.value ?? parseFloat(s.displayValue);
-          if (v !== undefined && v !== null && !isNaN(v)) return Number(v);
-        }
-      }
-      return null;
-    };
-    standings.sort((a, b) => {
-      const ra = statVal(a, "rank", "R"), rb = statVal(b, "rank", "R");
-      if (ra !== null && rb !== null && ra !== rb) return ra - rb;
-      const pa = statVal(a, "points", "P") || 0, pb = statVal(b, "points", "P") || 0;
-      if (pb !== pa) return pb - pa;
-      const gda = statVal(a, "pointDifferential", "GD") || 0, gdb = statVal(b, "pointDifferential", "GD") || 0;
-      if (gdb !== gda) return gdb - gda;
-      const gfa = statVal(a, "pointsFor", "F") || 0, gfb = statVal(b, "pointsFor", "F") || 0;
-      return gfb - gfa;
-    });
-
-    let rows = "";
-    standings.forEach((entry, i) => {
-      const team = entry.team?.displayName || entry.team?.name || "—";
-      const stats = entry.stats || [];
-      const getStat = (...keys) => {
-        for (const k of keys) {
-          const s = stats.find(x => x.abbreviation === k || x.name === k);
-          if (s) {
-            const v = s.displayValue ?? s.value;
-            if (v !== undefined && v !== null && v !== "") return v;
-          }
-        }
-        return "0";
-      };
-      const played = getStat("GP", "gamesPlayed");
-      const won = getStat("W", "wins");
-      const drawn = getStat("D", "ties", "draws");
-      const lost = getStat("L", "losses");
-      const gd = getStat("GD", "pointDifferential");
-      const pts = getStat("points", "P", "PTS");
-      const flag = wcTeamFlag(team);
-
-      rows += `<tr>
-        <td class="left" style="font-size:0.75rem">${i + 1}. ${flag} ${team}</td>
-        <td>${played}</td>
-        <td>${won}</td>
-        <td>${drawn}</td>
-        <td>${lost}</td>
-        <td>${gd}</td>
-        <td style="font-weight:700">${pts}</td>
-      </tr>`;
-    });
-
-    if (!rows) {
-      rows = `<tr><td colspan="7" style="text-align:center;padding:0.7rem;color:#888;font-size:0.78rem">No data yet</td></tr>`;
+// Poll every 60s while the bracket sub-panel is the active view
+function scheduleBracketRefresh() {
+  clearTimeout(wcBracketTimer);
+  wcBracketTimer = setTimeout(() => {
+    const sub = document.getElementById("wc-standings-sub");
+    const wcPanel = document.getElementById("wc-panel");
+    if (sub && sub.classList.contains("active") && wcPanel && wcPanel.classList.contains("active")) {
+      loadWCStandings(true);
     }
+  }, 60000);
+}
 
-    html += `<div class="group-card">
-      <div class="group-card-header">${groupName}</div>
-      <table>
-        <thead><tr>
-          <th class="left">Team</th>
-          <th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+function scrollBracketToLive(wrap) {
+  // Scroll so the first round that still has an unfinished match is in view
+  const rounds = wrap.querySelectorAll(".kround");
+  for (const r of rounds) {
+    if (r.querySelector(".kmatch.pre, .kmatch.in")) {
+      wrap.scrollLeft = Math.max(0, r.offsetLeft - 12);
+      return;
+    }
+  }
+}
+
+function renderKnockoutBracket(events) {
+  const byRound = {};
+  events.forEach(e => {
+    const slug = e.season && e.season.slug;
+    (byRound[slug] = byRound[slug] || []).push(e);
+  });
+
+  let cols = "";
+  KO_ROUNDS.forEach(round => {
+    let matches = (byRound[round.slug] || []).slice();
+    if (!matches.length) return;
+    matches.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : Number(a.id) - Number(b.id)));
+
+    const cards = matches.map(renderBracketMatch).join("");
+    let extraClass = round.slug === "3rd-place-match" ? " kround-third" : "";
+    if (KO_FEEDER_ROUNDS.includes(round.slug)) extraClass += " kfeed";
+    cols += `<div class="kround${extraClass}">
+      <div class="kround-title">${round.title}</div>
+      <div class="kround-body">${cards}</div>
     </div>`;
   });
 
-  html += `</div>`;
-  return html;
+  return `<div class="kbracket-wrap">
+    <div class="kbracket-top">
+      <span class="kbracket-hint"><span class="kdot-live">&#9679;</span> Live &middot; updates automatically</span>
+      <div class="kbracket-ctrls">
+        <button class="kbracket-nav" onclick="kbracketNav(-1)" aria-label="Earlier rounds">&#8249;</button>
+        <button class="kbracket-nav" onclick="kbracketNav(1)" aria-label="Later rounds">&#8250;</button>
+      </div>
+    </div>
+    <div class="kbracket">${cols}</div>
+  </div>`;
+}
+
+// Cycle the bracket left/right by roughly one round column
+function kbracketNav(dir) {
+  const w = document.querySelector("#wc-standings-content .kbracket");
+  if (!w) return;
+  const col = w.querySelector(".kround");
+  const step = col ? col.getBoundingClientRect().width + 26 : 240;
+  w.scrollBy({ left: dir * step, behavior: "smooth" });
+}
+
+function renderBracketMatch(e) {
+  const comp = (e.competitions && e.competitions[0]) || {};
+  const cs = comp.competitors || [];
+  const home = cs.find(c => c.homeAway === "home") || cs[0] || {};
+  const away = cs.find(c => c.homeAway === "away") || cs[1] || {};
+  const st = (e.status && e.status.type) || {};
+  const state = st.state || "pre";                 // pre | in | post
+  const completed = st.completed === true;
+
+  // Left = kickoff date (with time until it's finished); right pill = live/FT status
+  const whenLabel = koMatchWhen(e.date, state !== "post");
+  let pill = "";
+  if (state === "in") pill = `<span class="kstatus live">&#9679; ${st.shortDetail || "LIVE"}</span>`;
+  else if (state === "post") pill = `<span class="kstatus">${st.shortDetail || "FT"}</span>`;
+
+  const teamRow = (c) => {
+    const name = (c.team && (c.team.displayName || c.team.name)) || "TBD";
+    const placeholder = koIsPlaceholder(name);
+    const flag = placeholder ? "" : koFlag(name);
+    const scoreShown = state !== "pre" && c.score !== undefined && c.score !== null && c.score !== "";
+    const pen = (c.shootoutScore !== undefined && c.shootoutScore !== null && c.shootoutScore !== "");
+    const win = c.winner === true;
+    const cls = placeholder ? "tbd" : (completed ? (win ? "win" : "lose") : "");
+    const label = placeholder
+      ? `<span class="kshield">&#128737;</span><span class="kname">${koPlaceholderLabel(name)}</span>`
+      : `<span class="kflag">${flag}</span><span class="kname">${name}</span>`;
+    const score = scoreShown
+      ? `<span class="kscore">${c.score}${pen ? `<span class="kpen">(${c.shootoutScore})</span>` : ""}</span>`
+      : "";
+    return `<div class="kteam ${cls}">${label}${score}</div>`;
+  };
+
+  return `<div class="kmatch ${state}">
+    <div class="kmatch-head"><span class="kdate">${whenLabel}</span>${pill}</div>
+    ${teamRow(home)}
+    ${teamRow(away)}
+  </div>`;
 }
 
 // Toast
